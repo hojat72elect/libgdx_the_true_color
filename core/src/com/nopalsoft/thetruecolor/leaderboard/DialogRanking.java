@@ -5,18 +5,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.handlers.AmazonGameServicesHandler;
-import com.nopalsoft.thetruecolor.scene2d.VentanaAmazon;
-import com.nopalsoft.thetruecolor.scene2d.VentanaFacebook;
-import com.nopalsoft.thetruecolor.scene2d.VentanaGoogle;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
+import com.nopalsoft.thetruecolor.scene2d.DialogAmazon;
+import com.nopalsoft.thetruecolor.scene2d.DialogGoogle;
+
 
 
 public class DialogRanking extends Group {
@@ -24,18 +28,18 @@ public class DialogRanking extends Group {
     public static final float HEIGHT = 385;
 
     MainMenuScreen menuScreen;
-    MainTheTrueColor game;
+    com.nopalsoft.thetruecolor.TrueColorGame game;
 
     Label rankingTitle;
 
     Button btFacebook;
     Button btGoogle;
 
-    VentanaFacebook ventanaFacebook;
-    VentanaGoogle ventanaGoogle;
-    VentanaAmazon ventanaAmazon;
+    DialogFacebook dialogFacebook;
+    DialogGoogle dialogGoogle;
+    DialogAmazon dialogAmazon;
 
-    Table contenedor;
+    Table container;
 
     public DialogRanking(MainMenuScreen screen) {
         menuScreen = screen;
@@ -43,26 +47,26 @@ public class DialogRanking extends Group {
         setBounds(Screens.SCREEN_WIDTH / 2f - WIDTH / 2f, 210, WIDTH, HEIGHT);
         setBackground(Assets.dialogRanking);
 
-        rankingTitle = new Label(Assets.idiomas.get("ranking"), new Label.LabelStyle(Assets.fontChico, Color.WHITE));
+        rankingTitle = new Label(Assets.languages.get("ranking"), new Label.LabelStyle(Assets.fontSmall, Color.WHITE));
         rankingTitle.setPosition(15, 328);
 
-        ventanaFacebook = new VentanaFacebook(screen);
-        ventanaGoogle = new VentanaGoogle(screen);
-        ventanaAmazon = new VentanaAmazon(screen);
+        dialogFacebook = new DialogFacebook(screen);
+        dialogGoogle = new com.nopalsoft.thetruecolor.scene2d.DialogGoogle(screen);
+        dialogAmazon = new DialogAmazon(screen);
 
-        btFacebook = new Button(Assets.btFacebook);
+        btFacebook = new Button(Assets.buttonFacebook);
 
         menuScreen.addEfectoPress(btFacebook);
         btFacebook.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ventanaFacebook.show(getStage());
+                dialogFacebook.show(getStage());
             }
         });
 
-        TextureRegionDrawable btLoginKeyFrame = Assets.btGoogle;
+        TextureRegionDrawable btLoginKeyFrame = Assets.buttonGoogle;
         if (game.gameServiceHandler instanceof AmazonGameServicesHandler) {
-            btLoginKeyFrame = Assets.btAmazon;
+            btLoginKeyFrame = Assets.buttonAmazon;
         }
 
         btGoogle = new Button(btLoginKeyFrame);
@@ -72,51 +76,50 @@ public class DialogRanking extends Group {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (game.gameServiceHandler instanceof AmazonGameServicesHandler) {
-                    ventanaAmazon.show(getStage());
-                }
-                else {
-                    ventanaGoogle.show(getStage());
+                    dialogAmazon.show(getStage());
+                } else {
+                    dialogGoogle.show(getStage());
                 }
             }
         });
 
-        Table tbSocial = new Table();
-        tbSocial.setSize(130, 50);
-        tbSocial.setPosition(255, 328);
-        tbSocial.defaults().expandX().size(50).right();
-        tbSocial.add(btFacebook);
+        Table tableSocial = new Table();
+        tableSocial.setSize(130, 50);
+        tableSocial.setPosition(255, 328);
+        tableSocial.defaults().expandX().size(50).right();
+        tableSocial.add(btFacebook);
 
         if (Gdx.app.getType() != ApplicationType.WebGL && Gdx.app.getType() != ApplicationType.iOS) {
-            tbSocial.add(btGoogle);
+            tableSocial.add(btGoogle);
         }
 
         addActor(rankingTitle);
-        addActor(tbSocial);
+        addActor(tableSocial);
 
-        contenedor = new Table();
+        container = new Table();
 
-        ScrollPane scroll = new ScrollPane(contenedor);
+        ScrollPane scroll = new ScrollPane(container);
         scroll.setSize(WIDTH, 320);
         scroll.setPosition(0, 0);
 
         addActor(scroll);
 
-        contenedor.top();
+        container.top();
     }
 
     private void setBackground(NinePatchDrawable dialogRanking) {
-        Image img = new Image(dialogRanking);
-        img.setSize(getWidth(), getHeight());
-        addActor(img);
+        Image imageDialogRanking = new Image(dialogRanking);
+        imageDialogRanking.setSize(getWidth(), getHeight());
+        addActor(imageDialogRanking);
 
     }
 
     public void addPerson(Person person) {
-        contenedor.add(person);
-        contenedor.row();
+        container.add(person);
+        container.row();
     }
 
     public void clearLeaderboard() {
-        contenedor.clear();
+        container.clear();
     }
 }

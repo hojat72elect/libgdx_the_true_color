@@ -11,15 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.thetruecolor.Achievements;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.Settings;
-import com.nopalsoft.thetruecolor.objetos.Palabra;
 import com.nopalsoft.thetruecolor.scene2d.CountDown;
 import com.nopalsoft.thetruecolor.scene2d.ProgressbarTimer;
-import com.nopalsoft.thetruecolor.scene2d.VentanaFacebook;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
@@ -29,54 +25,54 @@ public class GameScreen extends Screens {
     public static int STATE_GAMEOVER = 2;
     int state;
 
-    public static float TIME_MINIMO_POR_PALABRA = .62f;
-    public static float TIME_INICIAL_POR_PALABRA = 5;
-    float timeInicialPorPalabra;
+    public static float MINIMUM_TIME_PER_WORD = .62f;
+    public static float INITIAL_TIME_PER_WORD = 5;
+    float initialTimeByWord;
 
-    Button btTrue, btFalse;
+    Button buttonTrue, buttonFalse;
 
-    Table tbMenu;
-    Button btBack, btTryAgain, btShare;
+    Table tableMenu;
+    Button buttonBack, buttonTryAgain, buttonShare;
 
-    Label lbScore;
+    Label labelScore;
 
     int score;
     int scoreAnterior;
 
-    Palabra oPalabra;
+    com.nopalsoft.thetruecolor.objects.Word oWord;
     ProgressbarTimer timerPalabra;
 
-    public GameScreen(final MainTheTrueColor game) {
+    public GameScreen(final com.nopalsoft.thetruecolor.TrueColorGame game) {
         super(game);
 
-        oPalabra = new Palabra();
+        oWord = new com.nopalsoft.thetruecolor.objects.Word();
 
-        lbScore = new Label("0", new LabelStyle(Assets.fontChico, Color.WHITE));
-        lbScore.setColor(Color.RED);
-        lbScore.setPosition(10, 735);
+        labelScore = new Label("0", new LabelStyle(Assets.fontSmall, Color.WHITE));
+        labelScore.setColor(Color.RED);
+        labelScore.setPosition(10, 735);
 
-        timeInicialPorPalabra = TIME_INICIAL_POR_PALABRA;
+        initialTimeByWord = INITIAL_TIME_PER_WORD;
 
         timerPalabra = new ProgressbarTimer(SCREEN_WIDTH / 2f - ProgressbarTimer.WIDTH / 2f, 300);
 
         int buttonSize = 90;
 
-        btTrue = new Button(Assets.btTrue);
-        addEfectoPress(btTrue);
-        btTrue.setSize(buttonSize, buttonSize);
-        btTrue.setPosition(240 + 80, 60);
-        btTrue.addListener(new ClickListener() {
+        buttonTrue = new Button(Assets.buttonTrue);
+        addEfectoPress(buttonTrue);
+        buttonTrue.setSize(buttonSize, buttonSize);
+        buttonTrue.setPosition(240 + 80, 60);
+        buttonTrue.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 checarPalabra(true);
             }
         });
 
-        btFalse = new Button(Assets.btFalse);
-        addEfectoPress(btFalse);
-        btFalse.setSize(buttonSize, buttonSize);
-        btFalse.setPosition(240 - 170, 60);
-        btFalse.addListener(new ClickListener() {
+        buttonFalse = new Button(Assets.buttonFalse);
+        addEfectoPress(buttonFalse);
+        buttonFalse.setSize(buttonSize, buttonSize);
+        buttonFalse.setPosition(240 - 170, 60);
+        buttonFalse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 checarPalabra(false);
@@ -85,56 +81,56 @@ public class GameScreen extends Screens {
 
         });
 
-        btBack = new Button(Assets.btBack);
-        addEfectoPress(btBack);
-        btBack.addListener(new ClickListener() {
+        buttonBack = new Button(Assets.buttonBack);
+        addEfectoPress(buttonBack);
+        buttonBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!btBack.isDisabled()) {
+                if (!buttonBack.isDisabled()) {
                     changeScreenWithFadeOut(MainMenuScreen.class, game);
                 }
             }
         });
 
-        btTryAgain = new Button(Assets.btTryAgain);
-        addEfectoPress(btTryAgain);
-        btTryAgain.addListener(new ClickListener() {
+        buttonTryAgain = new Button(Assets.buttonTryAgain);
+        addEfectoPress(buttonTryAgain);
+        buttonTryAgain.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!btTryAgain.isDisabled()) {
+                if (!buttonTryAgain.isDisabled()) {
                     changeScreenWithFadeOut(GameScreen.class, game);
                 }
             }
         });
 
-        btShare = new Button(Assets.btShare);
-        addEfectoPress(btShare);
-        btShare.addListener(new ClickListener() {
+        buttonShare = new Button(Assets.buttonShare);
+        addEfectoPress(buttonShare);
+        buttonShare.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!btShare.isDisabled()) {
+                if (!buttonShare.isDisabled()) {
                     game.reqHandler.shareAPK();
                 }
 
             }
         });
 
-        tbMenu = new Table();
-        tbMenu.setSize(SCREEN_WIDTH, 90);
-        tbMenu.setPosition(0, 60);
-        tbMenu.defaults().expandX().size(90);
+        tableMenu = new Table();
+        tableMenu.setSize(SCREEN_WIDTH, 90);
+        tableMenu.setPosition(0, 60);
+        tableMenu.defaults().expandX().size(90);
 
-        tbMenu.add(btBack);
-        tbMenu.add(btTryAgain);
+        tableMenu.add(buttonBack);
+        tableMenu.add(buttonTryAgain);
 
         // TODO fix que no se puede porque truena la app y no la aceptan en la tienda
         if (Gdx.app.getType() != ApplicationType.iOS) {
-            tbMenu.add(btShare);
+            tableMenu.add(buttonShare);
         }
 
-        stage.addActor(btTrue);
-        stage.addActor(btFalse);
-        stage.addActor(lbScore);
+        stage.addActor(buttonTrue);
+        stage.addActor(buttonFalse);
+        stage.addActor(labelScore);
 
         setReady();
 
@@ -143,40 +139,36 @@ public class GameScreen extends Screens {
     }
 
     public void createNewPalabra() {
-        oPalabra.init();
+        oWord.init();
 
         timerPalabra.remove();
-        timerPalabra.init(oPalabra.getColorActualPalabra(), timeInicialPorPalabra);
+        timerPalabra.init(oWord.getCurrentWordColor(), initialTimeByWord);
         stage.addActor(timerPalabra);
-        stage.addActor(oPalabra.imagen);
+        stage.addActor(oWord.image);
     }
 
     private void checarPalabra(boolean seleccion) {
         if (state == STATE_RUNNING) {
 
-            if ((oPalabra.color == oPalabra.texto && seleccion) || (oPalabra.color != oPalabra.texto && !seleccion)) {
+            if ((oWord.color == oWord.text && seleccion) || (oWord.color != oWord.text && !seleccion)) {
                 score++;
                 Achievements.unlockScoreAchievements(score);
 
                 if (score < 10) {
-                    timeInicialPorPalabra -= .14f;// 1.8seg menos
-                }
-                else if (score < 40) {
-                    timeInicialPorPalabra -= .05f;// 1.5seg menos
-                }
-                else if (score < 70) {
-                    timeInicialPorPalabra -= .015f;// .54seg menos
-                }
-                else {
-                    timeInicialPorPalabra -= .0075f;
+                    initialTimeByWord -= .14f;// 1.8seg menos
+                } else if (score < 40) {
+                    initialTimeByWord -= .05f;// 1.5seg menos
+                } else if (score < 70) {
+                    initialTimeByWord -= .015f;// .54seg menos
+                } else {
+                    initialTimeByWord -= .0075f;
                 }
 
-                if (timeInicialPorPalabra < TIME_MINIMO_POR_PALABRA) {
-                    timeInicialPorPalabra = TIME_MINIMO_POR_PALABRA;
+                if (initialTimeByWord < MINIMUM_TIME_PER_WORD) {
+                    initialTimeByWord = MINIMUM_TIME_PER_WORD;
                 }
                 createNewPalabra();
-            }
-            else {
+            } else {
                 setGameover();
             }
         }
@@ -189,8 +181,8 @@ public class GameScreen extends Screens {
         if (score > scoreAnterior) {
             scoreAnterior = score;
 
-            lbScore.setColor(Palabra.getRandomColor());
-            lbScore.setText(scoreAnterior + "");
+            labelScore.setColor(com.nopalsoft.thetruecolor.objects.Word.getRandomColor());
+            labelScore.setText(scoreAnterior + "");
         }
 
         if (timerPalabra.timeIsOver) {
@@ -226,56 +218,39 @@ public class GameScreen extends Screens {
 
             float animationTime = .8f;
 
-            btFalse.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
-            btTrue.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            buttonFalse.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            buttonTrue.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
             timerPalabra.timeIsOver = true;
             timerPalabra.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
-            oPalabra.imagen.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            oWord.image.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
-            String scoreText = Assets.idiomas.get("score");
+            String scoreText = Assets.languages.get("score");
 
-            StringBuilder scoreTextColor = new StringBuilder();
-
-            // HOT FIX PARA PONER ENTRE LAS LETRAS COLORES OBVIAMENTE ESTA MAL PERO nO SE ME OCURRIO OTRA COSA
-            String apend[] = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
-                    "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
-                    "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
-                    "[ORANGE]"};
-            for (int i = 0; i < scoreText.length(); i++) {
-                scoreTextColor.append(apend[i]);
-                scoreTextColor.append(scoreText.charAt(i));
-            }
-            scoreTextColor.append(apend[scoreText.length()]);
-
-            Label lblScore = new Label(scoreTextColor.toString() + "\n" + score, new LabelStyle(Assets.fontChico, Color.WHITE));
-            lblScore.setAlignment(Align.center);
-            lblScore.setFontScale(2.5f);
-            lblScore.pack();
-            lblScore.setPosition(SCREEN_WIDTH / 2f - lblScore.getWidth() / 2f, 380);
+            Label lblScore = getLabel(scoreText);
             lblScore.getColor().a = 0;
 
             lblScore.addAction(Actions.sequence(Actions.delay(1), Actions.alpha(1, animationTime)));
 
-            tbMenu.getColor().a = 0;
+            tableMenu.getColor().a = 0;
 
-            btBack.setDisabled(true);
-            btTryAgain.setDisabled(true);
-            btShare.setDisabled(true);
+            buttonBack.setDisabled(true);
+            buttonTryAgain.setDisabled(true);
+            buttonShare.setDisabled(true);
 
-            tbMenu.addAction(Actions.sequence(Actions.delay(1), Actions.alpha(1, animationTime), Actions.run(new Runnable() {
+            tableMenu.addAction(Actions.sequence(Actions.delay(1), Actions.alpha(1, animationTime), Actions.run(new Runnable() {
 
                 @Override
                 public void run() {
-                    btBack.setDisabled(false);
-                    btTryAgain.setDisabled(false);
-                    btShare.setDisabled(false);
+                    buttonBack.setDisabled(false);
+                    buttonTryAgain.setDisabled(false);
+                    buttonShare.setDisabled(false);
                 }
             })));
 
             stage.addActor(lblScore);
-            stage.addActor(tbMenu);
+            stage.addActor(tableMenu);
             Settings.setNewScore(score);
             game.facebookHandler.facebookSubmitScore(score);
             game.gameServiceHandler.submitScore(score);
@@ -289,12 +264,34 @@ public class GameScreen extends Screens {
 
 
             if (!game.facebookHandler.facebookIsSignedIn() && (Settings.numVecesJugadas == 5 || Settings.numVecesJugadas == 10)) {
-                new VentanaFacebook(this).show(stage);
+                new com.nopalsoft.thetruecolor.scene2d.DialogFacebook(this).show(stage);
             }
 
             Achievements.unlockTimesPlayedAchievements(Settings.numVecesJugadas);
             Settings.save();
         }
+    }
+
+    private Label getLabel(String scoreText) {
+        StringBuilder scoreTextColor = new StringBuilder();
+
+        // HOT FIX PARA PONER ENTRE LAS LETRAS COLORES OBVIAMENTE ESTA MAL PERO nO SE ME OCURRIO OTRA COSA
+        String[] apend = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
+                "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
+                "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
+                "[ORANGE]"};
+        for (int i = 0; i < scoreText.length(); i++) {
+            scoreTextColor.append(apend[i]);
+            scoreTextColor.append(scoreText.charAt(i));
+        }
+        scoreTextColor.append(apend[scoreText.length()]);
+
+        Label lblScore = new Label(scoreTextColor + "\n" + score, new Label.LabelStyle(com.nopalsoft.thetruecolor.Assets.fontSmall, com.badlogic.gdx.graphics.Color.WHITE));
+        lblScore.setAlignment(com.badlogic.gdx.utils.Align.center);
+        lblScore.setFontScale(2.5f);
+        lblScore.pack();
+        lblScore.setPosition(SCREEN_WIDTH / 2f - lblScore.getWidth() / 2f, 380);
+        return lblScore;
     }
 
     @Override

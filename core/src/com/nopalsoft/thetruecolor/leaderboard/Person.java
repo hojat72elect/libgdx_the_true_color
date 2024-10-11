@@ -3,136 +3,122 @@ package com.nopalsoft.thetruecolor.leaderboard;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
 public class Person extends Group implements Comparable<Person> {
     final float WIDTH = DialogRanking.WIDTH - 5;
     final float HEIGHT = 75;
 
-    public enum TipoCuenta {
-        GOOGLE_PLAY, FACEBOOK, AMAZON;
+    public enum AccountType {
+        GOOGLE_PLAY, FACEBOOK, AMAZON
     }
 
-    public TipoCuenta tipoCuenta;
+    public Person.AccountType accountType;
 
     final public String id;
     public String name;
     public long score;
-    public String urlImagen;
 
-    /**
-     * uso un image button porque puede tener fondo y una imagen
-     */
-    private ImageButton imagenPersona;
-    private Image imagenCuenta;
+    Label labelName;
+    Label labelScore;
 
-    Label lbNombre;
-    Label lbScore;
 
-    boolean isMe;// Indica que esta persona es el usuario
-
-    public Person(TipoCuenta tipoCuenta, String id, String name, long oScore) {
+    public Person(Person.AccountType accountType, String id, String name, long score) {
         setBounds(0, 0, WIDTH, HEIGHT);
 
-        this.tipoCuenta = tipoCuenta;
+        this.accountType = accountType;
         this.id = id;
         this.name = name;
-        this.score = oScore;
+        this.score = score;
 
-        TextureRegionDrawable keyCuenta;
-        switch (tipoCuenta) {
+        Image imageAccount = getImage(accountType);
+
+        labelName = new Label(name, new LabelStyle(Assets.fontSmall, Color.BLACK));
+        labelName.setFontScale(.7f);
+        labelName.setPosition(140, 36);
+
+        labelScore = new Label(formatScore(), new LabelStyle(Assets.fontSmall, Color.RED));
+        labelScore.setPosition(140, 5);
+
+        addActor(imageAccount);
+        addActor(labelName);
+        addActor(labelScore);
+
+        // Separator
+        Image imageHeader = new Image(Assets.header);
+        imageHeader.setPosition(0, 0);
+        imageHeader.setSize(WIDTH, 5);
+        addActor(imageHeader);
+    }
+
+    private Image getImage(Person.AccountType accountType) {
+       TextureRegionDrawable accountKey;
+        switch (accountType) {
             case AMAZON:
-                keyCuenta = Assets.btAmazon;
+                accountKey = Assets.buttonAmazon;
                 break;
             case FACEBOOK:
-                keyCuenta = Assets.btFacebook;
+                accountKey = Assets.buttonFacebook;
                 break;
             default:
             case GOOGLE_PLAY:
-                keyCuenta = Assets.btGoogle;
+                accountKey = Assets.buttonGoogle;
                 break;
         }
 
-        imagenCuenta = new Image(keyCuenta);
-        imagenCuenta.setSize(30, 30);
-        imagenCuenta.setPosition(10, HEIGHT / 2f - imagenCuenta.getHeight() / 2f);
-
-        lbNombre = new Label(name, new LabelStyle(Assets.fontChico, Color.BLACK));
-        lbNombre.setFontScale(.7f);
-        lbNombre.setPosition(140, 36);
-
-        lbScore = new Label(formatScore(), new LabelStyle(Assets.fontChico, Color.RED));
-        lbScore.setPosition(140, 5);
-
-        addActor(imagenCuenta);
-        addActor(lbNombre);
-        addActor(lbScore);
-
-        // Separador
-        Image img = new Image(Assets.header);
-        img.setPosition(0, 0);
-        img.setSize(WIDTH, 5);
-        addActor(img);
+        Image imageAccount = new Image(accountKey);
+        imageAccount.setSize(30, 30);
+        imageAccount.setPosition(10, HEIGHT / 2f - imageAccount.getHeight() / 2f);
+        return imageAccount;
     }
 
     public void setPicture(TextureRegionDrawable drawable) {
-        imagenPersona = new ImageButton(new ImageButtonStyle(drawable, null, null, Assets.photoFrame, null, null));
-        imagenPersona.setSize(60, 60);
-        imagenPersona.getImageCell().size(60);
-        imagenPersona.setPosition(60, HEIGHT / 2f - imagenPersona.getHeight() / 2f);
-        addActor(imagenPersona);
+
+        // I use an image button because it can have a background and an image.
+        ImageButton imageButtonCharacter = new ImageButton(new ImageButton.ImageButtonStyle(drawable, null, null, Assets.photoFrame, null, null));
+        imageButtonCharacter.setSize(60, 60);
+        imageButtonCharacter.getImageCell().size(60);
+        imageButtonCharacter.setPosition(60, HEIGHT / 2f - imageButtonCharacter.getHeight() / 2f);
+        addActor(imageButtonCharacter);
 
     }
 
-    // Sacado de http://stackoverflow.com/a/15329259/3479489
+
     public String formatScore() {
-        String str = String.valueOf(score);
-        int floatPos = str.indexOf(".") > -1 ? str.length() - str.indexOf(".") : 0;
-        int nGroups = (str.length() - floatPos - 1 - (str.indexOf("-") > -1 ? 1 : 0)) / 3;
+        String score = String.valueOf(this.score);
+        int floatPos = score.contains(".") ? score.length() - score.indexOf(".") : 0;
+        int nGroups = (score.length() - floatPos - 1 - (score.contains("-") ? 1 : 0)) / 3;
         for (int i = 0; i < nGroups; i++) {
-            int commaPos = str.length() - i * 4 - 3 - floatPos;
-            str = str.substring(0, commaPos) + "," + str.substring(commaPos, str.length());
+            int commaPos = score.length() - i * 4 - 3 - floatPos;
+            score = score.substring(0, commaPos) + "," + score.substring(commaPos);
         }
-        return str;
+        return score;
     }
 
     @Override
-    public int compareTo(Person o) {
-        if (score > o.score)
-            return -1;
-        else if (score < o.score)
-            return 1;
-        else
-            return 0;
+    public int compareTo(Person otherPerson) {
+        return Long.compare(otherPerson.score, score);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Person) {
             Person objPerson = (Person) obj;
-            if (id.equals(objPerson.id) && tipoCuenta == objPerson.tipoCuenta)
-                return true;
-            else
-                return false;
+            return id.equals(objPerson.id) && accountType == objPerson.accountType;
 
         } else
             return false;
     }
 
-    public void updateDatos(String _name, long _score) {
+    public void updateData(String _name, long _score) {
         name = _name;
         score = _score;
-        lbNombre.setText(name);
-        lbScore.setText(formatScore());
+        labelName.setText(name);
+        labelScore.setText(formatScore());
 
-    }
-
-    public void setImagenURL(String scoreHolderIconImageUrl) {
-        urlImagen = scoreHolderIconImageUrl;
     }
 }

@@ -3,41 +3,33 @@ package com.nopalsoft.thetruecolor.handlers;
 public interface GameServicesHandler {
 
     /**
-     * Este metodo abstrae a GPGS o a AGC
-     *
-     * @param tiempoLap
+     * This method abstracts away GPGS or AGC.
      */
-    public void submitScore(long score);
+    void submitScore(long score);
 
     /**
-     * Este metodo abstrae a GPGS o a AGC
-     *
-     * @param score
+     * This method abstracts away GPGS or AGC.
      */
-    public void unlockAchievement(String achievementId);
+    void unlockAchievement(String achievementId);
 
-    public void unlockStepAchievement(float steps, String achievementID);
+    void unlockStepAchievement(float steps, String achievementID);
 
     /**
-     * Este metodo abstrae a GPGS o a AGC
-     *
-     * @param score
+     * This method abstracts away GPGS or AGC.
      */
-    public void getLeaderboard();
+    void getLeaderboard();
 
-    public void getScores();
+    void getScores();
 
     /**
-     * Este metodo abstrae a GPGS o a AGC
-     *
-     * @param score
+     * This method abstracts away GPGS or AGC.
      */
-    public void getAchievements();
+    void getAchievements();
 
-    public boolean isSignedIn();
+    boolean isSignedIn();
 
-    public void signIn();
+    void signIn();
 
-    public void signOut();
+    void signOut();
 
 }

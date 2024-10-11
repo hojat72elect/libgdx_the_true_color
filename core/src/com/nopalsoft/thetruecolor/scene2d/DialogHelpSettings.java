@@ -2,19 +2,23 @@ package com.nopalsoft.thetruecolor.scene2d;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
-public class VentanaHelpSettings extends Ventana {
+public class DialogHelpSettings extends Dialog {
     static final float WIDTH = 440;
     static final float HEIGHT = 600;
 
-    public static enum Languages {
+    public enum Languages {
         DEFAULT, ENGLISH, SPANISH, CHINESE_TAIWAN, RUSSIAN, FRENCH, JAPANESE, PORTUGUESE
     }
 
@@ -23,19 +27,19 @@ public class VentanaHelpSettings extends Ventana {
     TextButton btDefault, btEnglish, btSpanish, btChineseTaiwan, btRussian, btFrench, btJapanese, btPortugese;
     TextButton btMore;
 
-    VentanaMoreLanguages vtnaMoreLanguages;
+    DialogMoreLanguages vtnaMoreLanguages;
 
-    public VentanaHelpSettings(final Screens currentScreen) {
+    public DialogHelpSettings(final Screens currentScreen) {
         super(currentScreen, WIDTH, HEIGHT, 80);
-        setCloseButton(400, 560, 50);
+        setCloseButton(560);
 
-        Label lbIdioma = new Label(Assets.idiomas.get("language"), new LabelStyle(Assets.fontChico, Color.BLACK));
+        Label lbIdioma = new Label(Assets.languages.get("language"), new LabelStyle(Assets.fontSmall, Color.BLACK));
         lbIdioma.setPosition(getWidth() / 2f - lbIdioma.getWidth() / 2f, 555);
         addActor(lbIdioma);
 
-        vtnaMoreLanguages = new VentanaMoreLanguages(currentScreen);
+        vtnaMoreLanguages = new DialogMoreLanguages(currentScreen);
 
-        btMore = crearBotton(Assets.idiomas.get("more"), null, Assets.flagMore);
+        btMore = crearBotton(Assets.languages.get("more"), null, Assets.flagMore);
         btMore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -48,18 +52,18 @@ public class VentanaHelpSettings extends Ventana {
 
         btEnglish = crearBotton("English", Languages.ENGLISH, Assets.flagEnglish);
 
-        btSpanish = crearBotton("Espa\u00F1ol", Languages.SPANISH, Assets.flagSpanish);
+        btSpanish = crearBotton("Espalier", Languages.SPANISH, Assets.flagSpanish);
 
-        btChineseTaiwan = crearBotton("\u4E2D\u6587", Languages.CHINESE_TAIWAN, Assets.flagChinese_TW);
+        btChineseTaiwan = crearBotton("中文", Languages.CHINESE_TAIWAN, Assets.flagChinese_TW);
 
-        btRussian = crearBotton("\u0420\u0443\u0441\u0441\u043a\u0438\u0439", Languages.RUSSIAN, Assets.flagRussian);
+        btRussian = crearBotton("Русский", Languages.RUSSIAN, Assets.flagRussian);
         btRussian.getLabel().setFontScale(.7f);
 
-        btFrench = crearBotton("Fran\u00e7ais", Languages.FRENCH, Assets.flagFench);
+        btFrench = crearBotton("Français", Languages.FRENCH, Assets.flagFrench);
 
-        btJapanese = crearBotton("\u65e5\u672c\u8a9e", Languages.JAPANESE, Assets.flagJapanese);
+        btJapanese = crearBotton("日本語", Languages.JAPANESE, Assets.flagJapanese);
 
-        btPortugese = crearBotton("Portugu\u00eas", Languages.PORTUGUESE, Assets.flagPortugese);
+        btPortugese = crearBotton("Português", Languages.PORTUGUESE, Assets.flagPortugese);
 
         switch (Settings.selectedLanguage) {
             case DEFAULT:
@@ -89,7 +93,7 @@ public class VentanaHelpSettings extends Ventana {
         }
 
 
-        ButtonGroup<TextButton> btGroup = new ButtonGroup<TextButton>(btDefault, btEnglish, btSpanish, btChineseTaiwan, btRussian, btFrench, btJapanese, btPortugese);
+        ButtonGroup<TextButton> btGroup = new ButtonGroup<>(btDefault, btEnglish, btSpanish, btChineseTaiwan, btRussian, btFrench, btJapanese, btPortugese);
         btGroup.setMaxCheckCount(1);
 
         Table tbIdiomas = new Table();
@@ -150,36 +154,36 @@ public class VentanaHelpSettings extends Ventana {
 
         tbColores.defaults().expandX().padTop(5).padBottom(5);
 
-        tbColores.add(getNewLabelWithColor(idiomas.get("blue"), Color.BLUE));
+        tbColores.add(getNewLabelWithColor(languages.get("blue"), Color.BLUE));
         tbColores.add(iBlue).size(40).left();
 
-        tbColores.add(getNewLabelWithColor(idiomas.get("cyan"), Color.CYAN));
+        tbColores.add(getNewLabelWithColor(languages.get("cyan"), Color.CYAN));
         tbColores.add(iCyan).size(40).left();
 
         tbColores.row();
-        tbColores.add(getNewLabelWithColor(idiomas.get("green"), Color.GREEN));
+        tbColores.add(getNewLabelWithColor(languages.get("green"), Color.GREEN));
         tbColores.add(iGreen).size(40).left();
 
-        tbColores.add(getNewLabelWithColor(idiomas.get("yellow"), Color.YELLOW));
+        tbColores.add(getNewLabelWithColor(languages.get("yellow"), Color.YELLOW));
         tbColores.add(iYellow).size(40).left();
 
         tbColores.row();
-        tbColores.add(getNewLabelWithColor(idiomas.get("pink"), Color.PINK));
+        tbColores.add(getNewLabelWithColor(languages.get("pink"), Color.PINK));
         tbColores.add(iPink).size(40).left();
 
-        tbColores.add(getNewLabelWithColor(idiomas.get("brown"), new Color(.6f, .3f, 0, 1)));
+        tbColores.add(getNewLabelWithColor(languages.get("brown"), new Color(.6f, .3f, 0, 1)));
         tbColores.add(iBrown).size(40).left();
 
         tbColores.row();
-        tbColores.add(getNewLabelWithColor(idiomas.get("purple"), Color.PURPLE));
+        tbColores.add(getNewLabelWithColor(languages.get("purple"), Color.PURPLE));
         tbColores.add(iPurple).size(40).left();
 
-        tbColores.add(getNewLabelWithColor(idiomas.get("red"), Color.RED));
+        tbColores.add(getNewLabelWithColor(languages.get("red"), Color.RED));
         tbColores.add(iRed).size(40).left();
     }
 
     private Label getNewLabelWithColor(String text, Color color) {
-        LabelStyle lbStyleColores = new LabelStyle(Assets.fontChico, color);
+        LabelStyle lbStyleColores = new LabelStyle(Assets.fontSmall, color);
         Label label = new Label(text, lbStyleColores);
         if (Settings.selectedLanguage == Languages.RUSSIAN) {
             label.setFontScale(.7f);
@@ -189,7 +193,7 @@ public class VentanaHelpSettings extends Ventana {
     }
 
     private TextButton crearBotton(String texto, Languages language, TextureRegionDrawable flag) {
-        TextButton btAux = new TextButton(texto, Assets.txtButtonStyle);
+        TextButton btAux = new TextButton(texto, Assets.textButtonStyle);
         if (flag != null) {
             btAux.add(new Image(flag));
         }
@@ -208,7 +212,7 @@ public class VentanaHelpSettings extends Ventana {
                 Settings.selectedLanguage = language;
                 Settings.save();
                 Assets.loadAssetsWithSettings();
-                idiomas = Assets.idiomas;
+                languages = Assets.languages;
                 fillTableColores();
 
             }

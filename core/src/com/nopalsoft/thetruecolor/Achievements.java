@@ -9,7 +9,7 @@ public class Achievements {
 
     static String begginer, intermediate, advanced, expert, god, iLikeThisGame, iLoveThisGame;
 
-    public static void init(MainTheTrueColor game) {
+    public static void init(TrueColorGame game) {
         gameHandler = game.gameServiceHandler;
 
         if (gameHandler instanceof GoogleGameServicesHandler) {
@@ -20,8 +20,7 @@ public class Achievements {
             god = "CgkIvIu0qPsVEAIQBw";
             iLikeThisGame = "CgkIvIu0qPsVEAIQCw";
             iLoveThisGame = "CgkIvIu0qPsVEAIQDA";
-        }
-        else {
+        } else {
             begginer = "BeginnerID";
             intermediate = "IntermediateID";
             advanced = "AdvancedID";
@@ -37,17 +36,13 @@ public class Achievements {
 
         if (num == 250) {
             gameHandler.unlockAchievement(god);
-        }
-        else if (num == 175) {
+        } else if (num == 175) {
             gameHandler.unlockAchievement(expert);
-        }
-        else if (num == 100) {
+        } else if (num == 100) {
             gameHandler.unlockAchievement(advanced);
-        }
-        else if (num == 60) {
+        } else if (num == 60) {
             gameHandler.unlockAchievement(intermediate);
-        }
-        else if (num == 30) {
+        } else if (num == 30) {
             gameHandler.unlockAchievement(begginer);
         }
 
@@ -57,11 +52,8 @@ public class Achievements {
         if (gameHandler instanceof GoogleGameServicesHandler) {
             gameHandler.unlockStepAchievement(1, iLikeThisGame);
             gameHandler.unlockStepAchievement(1, iLoveThisGame);
-        }
-        else {//Amazon
+        } else {
             gameHandler.unlockStepAchievement(Settings.numVecesJugadas, iLikeThisGame);
-            //250 = 100%
-            //numVecesJugadas = X%
             gameHandler.unlockStepAchievement(Settings.numVecesJugadas * 100f / 250f, iLoveThisGame);//Para llegar al 100% se deben hacer 250 juegos
         }
     }

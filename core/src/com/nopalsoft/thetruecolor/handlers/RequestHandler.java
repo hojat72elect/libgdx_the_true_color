@@ -1,22 +1,16 @@
 package com.nopalsoft.thetruecolor.handlers;
 
 public interface RequestHandler {
-	public void showRater();
+    void showRater();
 
-	public void loadInterstitial();
+    void loadInterstitial();
 
-	public void showInterstitial();
+    void showInterstitial();
 
-	public void showMoreGames();
+    void shareAPK();
 
-	public void shareOnTwitter(final String mensaje);
+    void showAdBanner();
 
-	public void removeAds();
-
-	public void shareAPK();
-
-	public void showAdBanner();
-
-	public void hideAdBanner();
+    void hideAdBanner();
 
 }

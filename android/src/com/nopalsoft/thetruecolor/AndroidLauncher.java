@@ -16,14 +16,14 @@ import com.nopalsoft.thetruecolor.handlers.RequestHandler;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
 
 public class AndroidLauncher extends AndroidApplication implements RequestHandler, HandlerGWT, GoogleGameServicesHandler, FacebookHandler {
-    public MainTheTrueColor game;
+    public TrueColorGame game;
     private boolean isSigned = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        game = new MainTheTrueColor(this, this, this, this);
+        game = new TrueColorGame(this, this, this, this);
         initialize(game, config);
     }
 
@@ -31,7 +31,7 @@ public class AndroidLauncher extends AndroidApplication implements RequestHandle
     public void facebookSignOut() {
         isSigned = false;
         Gdx.app.log("Facebook", "Sign out");
-        game.removeFromArray(Person.TipoCuenta.FACEBOOK);
+        game.removeFromArray(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK);
     }
 
     @Override
@@ -48,34 +48,19 @@ public class AndroidLauncher extends AndroidApplication implements RequestHandle
 
 
     @Override
-    public void facebookShareFeed(String message) {
-
-    }
-
-    @Override
-    public void showFacebook() {
-
-    }
-
-    @Override
     public void facebookGetScores() {
         Array<Person> arrPerson = new Array<>();
-        arrPerson.add(new Person(Person.TipoCuenta.FACEBOOK, "1", "Jessie", 15000));
-        arrPerson.add(new Person(Person.TipoCuenta.FACEBOOK, "2", "Rogelio", 10000));
-        arrPerson.add(new Person(Person.TipoCuenta.GOOGLE_PLAY, "3", "Susana", 8000));
-        arrPerson.add(new Person(Person.TipoCuenta.FACEBOOK, "4", "Flavia", 5000));
-        arrPerson.add(new Person(Person.TipoCuenta.FACEBOOK, "5", "Micky", 2500));
-        arrPerson.add(new Person(Person.TipoCuenta.GOOGLE_PLAY, "6", "Carlos", 1000));
+        arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "1", "Jessie", 15000));
+        arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "2", "Rogelio", 10000));
+        arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.GOOGLE_PLAY, "3", "Susana", 8000));
+        arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "4", "Flavia", 5000));
+        arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "5", "Micky", 2500));
+        arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.GOOGLE_PLAY, "6", "Carlos", 1000));
         game.setArrayPerson(arrPerson);
     }
 
     @Override
     public void facebookSubmitScore(int score) {
-
-    }
-
-    @Override
-    public void facebookInviteFriends(String message) {
 
     }
 
@@ -168,21 +153,6 @@ public class AndroidLauncher extends AndroidApplication implements RequestHandle
 
     @Override
     public void showInterstitial() {
-
-    }
-
-    @Override
-    public void showMoreGames() {
-
-    }
-
-    @Override
-    public void shareOnTwitter(String mensaje) {
-
-    }
-
-    @Override
-    public void removeAds() {
 
     }
 

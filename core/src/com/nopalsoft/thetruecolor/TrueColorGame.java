@@ -14,13 +14,11 @@ import com.nopalsoft.thetruecolor.handlers.HandlerGWT;
 import com.nopalsoft.thetruecolor.handlers.HandlerGWT.OnTextureLoaded;
 import com.nopalsoft.thetruecolor.handlers.RequestHandler;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
-import com.nopalsoft.thetruecolor.leaderboard.Person.TipoCuenta;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 import com.nopalsoft.thetruecolor.screens.Screens;
-
 import java.util.Iterator;
 
-public class MainTheTrueColor extends Game {
+public class TrueColorGame extends Game {
     public Array<Person> arrPerson;
 
     public final GameServicesHandler gameServiceHandler;
@@ -28,10 +26,10 @@ public class MainTheTrueColor extends Game {
     public final FacebookHandler facebookHandler;
     public final HandlerGWT handlerGWT;
 
-    public MainTheTrueColor(RequestHandler reqHandler,
-                            GameServicesHandler gameServiceHandler,
-                            FacebookHandler facebookHandler,
-                            HandlerGWT handlerGWT) {
+    public TrueColorGame(RequestHandler reqHandler,
+                         GameServicesHandler gameServiceHandler,
+                         FacebookHandler facebookHandler,
+                         HandlerGWT handlerGWT) {
         this.reqHandler = reqHandler;
         this.gameServiceHandler = gameServiceHandler;
         this.facebookHandler = facebookHandler;
@@ -62,7 +60,7 @@ public class MainTheTrueColor extends Game {
                 if (!arrPerson.contains(oPerson, false))// false para que compare por equals que ya sobreescribi
                     arrPerson.add(oPerson);
                 else {
-                    arrPerson.get(arrPerson.indexOf(oPerson, false)).updateDatos(oPerson.name, oPerson.score);
+                    arrPerson.get(arrPerson.indexOf(oPerson, false)).updateData(oPerson.name, oPerson.score);
                 }
             }
         }
@@ -92,14 +90,14 @@ public class MainTheTrueColor extends Game {
     /**
      * Se manda llamar cuando se cierra la sesion en facebook, quita de la tabla todos los usuario de facebook
      */
-    public void removeFromArray(TipoCuenta cuenta) {
+    public void removeFromArray(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType cuenta) {
         if (arrPerson == null)
             return;
 
         Iterator<Person> i = arrPerson.iterator();
         while (i.hasNext()) {
             Person obj = i.next();
-            if (obj.tipoCuenta == cuenta)
+            if (obj.accountType == cuenta)
                 i.remove();
         }
 

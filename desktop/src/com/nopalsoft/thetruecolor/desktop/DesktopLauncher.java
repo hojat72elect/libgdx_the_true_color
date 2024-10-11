@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.utils.Array;
-import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.handlers.FacebookHandler;
 import com.nopalsoft.thetruecolor.handlers.GoogleGameServicesHandler;
 import com.nopalsoft.thetruecolor.handlers.HandlerGWT;
@@ -16,14 +15,14 @@ import com.nopalsoft.thetruecolor.handlers.RequestHandler;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
 
 public class DesktopLauncher {
-    public static MainTheTrueColor game;
+    public static com.nopalsoft.thetruecolor.TrueColorGame game;
     private static boolean isSigned = false;
 
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 480;
         config.height = 800;
-        game = new MainTheTrueColor(handler, gameHandler, faceHandler, handlerGWT);
+        game = new com.nopalsoft.thetruecolor.TrueColorGame(handler, gameHandler, faceHandler, handlerGWT);
         new LwjglApplication(game, config);
     }
 
@@ -35,27 +34,12 @@ public class DesktopLauncher {
         }
 
         @Override
-        public void showMoreGames() {
-
-        }
-
-        @Override
         public void showInterstitial() {
 
         }
 
         @Override
         public void showAdBanner() {
-
-        }
-
-        @Override
-        public void shareOnTwitter(String mensaje) {
-
-        }
-
-        @Override
-        public void removeAds() {
 
         }
 
@@ -127,15 +111,10 @@ public class DesktopLauncher {
     static FacebookHandler faceHandler = new FacebookHandler() {
 
         @Override
-        public void showFacebook() {
-
-        }
-
-        @Override
         public void facebookSignOut() {
             isSigned = false;
             Gdx.app.log("Facebook", "Sign out");
-            game.removeFromArray(Person.TipoCuenta.FACEBOOK);
+            game.removeFromArray(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK);
         }
 
         @Override
@@ -145,30 +124,20 @@ public class DesktopLauncher {
             facebookGetScores();
         }
 
-        @Override
-        public void facebookShareFeed(String message) {
-
-        }
-
         public boolean facebookIsSignedIn() {
             return isSigned;
         }
 
 
         @Override
-        public void facebookInviteFriends(String message) {
-
-        }
-
-        @Override
         public void facebookGetScores() {
             Array<Person> arrPerson = new Array<>();
-            arrPerson.add(new Person(Person.TipoCuenta.FACEBOOK, "1", "Jessie", 15000));
-            arrPerson.add(new Person(Person.TipoCuenta.FACEBOOK, "2", "Rogelio", 10000));
-            arrPerson.add(new Person(Person.TipoCuenta.GOOGLE_PLAY, "3", "Susana", 8000));
-            arrPerson.add(new Person(Person.TipoCuenta.FACEBOOK, "4", "Flavia", 5000));
-            arrPerson.add(new Person(Person.TipoCuenta.FACEBOOK, "5", "Micky", 2500));
-            arrPerson.add(new Person(Person.TipoCuenta.GOOGLE_PLAY, "6", "Carlos", 1000));
+            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "1", "Jessie", 15000));
+            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "2", "Rogelio", 10000));
+            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.GOOGLE_PLAY, "3", "Susana", 8000));
+            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "4", "Flavia", 5000));
+            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "5", "Micky", 2500));
+            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.GOOGLE_PLAY, "6", "Carlos", 1000));
             game.setArrayPerson(arrPerson);
         }
 
