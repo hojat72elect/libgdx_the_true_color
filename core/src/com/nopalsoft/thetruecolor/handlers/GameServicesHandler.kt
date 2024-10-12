@@ -1,35 +1,26 @@
-package com.nopalsoft.thetruecolor.handlers;
+package com.nopalsoft.thetruecolor.handlers
 
-public interface GameServicesHandler {
+interface GameServicesHandler {
 
-    /**
-     * This method abstracts away GPGS or AGC.
-     */
-    void submitScore(long score);
+    // This method abstracts away GPGS or AGC.
+    fun submitScore(score: Long)
 
-    /**
-     * This method abstracts away GPGS or AGC.
-     */
-    void unlockAchievement(String achievementId);
+    // This method abstracts away GPGS or AGC.
+    fun unlockAchievement(achievementId: String)
 
-    void unlockStepAchievement(float steps, String achievementID);
+    fun unlockStepAchievement(steps: Float, achievementID: String)
 
-    /**
-     * This method abstracts away GPGS or AGC.
-     */
-    void getLeaderboard();
+    // This method abstracts away GPGS or AGC.
+    fun getLeaderboard()
 
-    void getScores();
+    fun getScores()
 
-    /**
-     * This method abstracts away GPGS or AGC.
-     */
-    void getAchievements();
+    // This method abstracts away GPGS or AGC.
+    fun getAchievements()
 
-    boolean isSignedIn();
+    fun isSignedIn(): Boolean
 
-    void signIn();
+    fun signIn()
 
-    void signOut();
-
+    fun signOut()
 }
