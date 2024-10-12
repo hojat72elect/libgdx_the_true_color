@@ -1,15 +1,14 @@
-package com.nopalsoft.thetruecolor.handlers;
+package com.nopalsoft.thetruecolor.handlers
 
-public interface FacebookHandler {
+interface FacebookHandler {
 
-    void facebookSignIn();
+    fun facebookSignIn()
 
-    void facebookSignOut();
+    fun facebookSignOut()
 
-    boolean facebookIsSignedIn();
+    fun facebookIsSignedIn(): Boolean
 
-    void facebookGetScores();
+    fun facebookGetScores()
 
-    void facebookSubmitScore(final int score);
-
+    fun facebookSubmitScore(score: Int)
 }
