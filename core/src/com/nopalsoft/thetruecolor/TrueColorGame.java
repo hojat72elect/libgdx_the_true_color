@@ -57,7 +57,7 @@ public class TrueColorGame extends Game {
             arrPerson = _arrPerson;
         } else {
             for (Person oPerson : _arrPerson) {
-                if (!arrPerson.contains(oPerson, false))// false para que compare por equals que ya sobreescribi
+                if (!arrPerson.contains(oPerson, false))// false to compare by equals which I already overwrote.
                     arrPerson.add(oPerson);
                 else {
                     arrPerson.get(arrPerson.indexOf(oPerson, false)).updateData(oPerson.name, oPerson.score);
@@ -69,7 +69,7 @@ public class TrueColorGame extends Game {
             getPersonPhoto(oPerson);
         }
 
-        // Si no estoy en el menu principal ps no actualizo
+        // If I'm not in the main menu, it doesn't update.
         if (getScreen() instanceof MainMenuScreen) {
             MainMenuScreen oScreen = (MainMenuScreen) getScreen();
             oScreen.updateLeaderboard();
@@ -78,7 +78,6 @@ public class TrueColorGame extends Game {
     }
 
     private void getPersonPhoto(final Person oPerson) {
-        // (FIXME: Profile images should not be hardcoded here)
         handlerGWT.getTextureFromFacebook("https://picsum.photos/200", new OnTextureLoaded() {
             @Override
             public void onTextureLoaded(Texture texture) {
@@ -88,7 +87,7 @@ public class TrueColorGame extends Game {
     }
 
     /**
-     * Se manda llamar cuando se cierra la sesion en facebook, quita de la tabla todos los usuario de facebook
+     * Called when the Facebook session is closed, removes all Facebook users from the table.
      */
     public void removeFromArray(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType cuenta) {
         if (arrPerson == null)
@@ -101,7 +100,7 @@ public class TrueColorGame extends Game {
                 i.remove();
         }
 
-        // Si no estoy en el menu principal ps no actualizo
+        // If I'm not in the main menu, it won't update.
         if (getScreen() instanceof MainMenuScreen) {
             MainMenuScreen oScreen = (MainMenuScreen) getScreen();
             oScreen.updateLeaderboard();
