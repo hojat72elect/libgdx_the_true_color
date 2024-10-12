@@ -15,7 +15,6 @@ import com.nopalsoft.thetruecolor.Achievements;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.scene2d.CountDown;
-import com.nopalsoft.thetruecolor.scene2d.ProgressbarTimer;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
@@ -40,7 +39,7 @@ public class GameScreen extends Screens {
     int scoreAnterior;
 
     com.nopalsoft.thetruecolor.objects.Word oWord;
-    ProgressbarTimer timerPalabra;
+    com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer tableProgressbarTimer;
 
     public GameScreen(final com.nopalsoft.thetruecolor.TrueColorGame game) {
         super(game);
@@ -53,7 +52,7 @@ public class GameScreen extends Screens {
 
         initialTimeByWord = INITIAL_TIME_PER_WORD;
 
-        timerPalabra = new ProgressbarTimer(SCREEN_WIDTH / 2f - ProgressbarTimer.WIDTH / 2f, 300);
+        tableProgressbarTimer = new com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer(SCREEN_WIDTH / 2f - com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer.WIDTH / 2f, 300);
 
         int buttonSize = 90;
 
@@ -64,7 +63,7 @@ public class GameScreen extends Screens {
         buttonTrue.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                checarPalabra(true);
+                checkWord(true);
             }
         });
 
@@ -75,7 +74,7 @@ public class GameScreen extends Screens {
         buttonFalse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                checarPalabra(false);
+                checkWord(false);
 
             }
 
@@ -123,7 +122,7 @@ public class GameScreen extends Screens {
         tableMenu.add(buttonBack);
         tableMenu.add(buttonTryAgain);
 
-        // TODO fix que no se puede porque truena la app y no la aceptan en la tienda
+        // TODO fix that can't be done because the app crashes and they don't accept it in the store.
         if (Gdx.app.getType() != ApplicationType.iOS) {
             tableMenu.add(buttonShare);
         }
@@ -138,19 +137,19 @@ public class GameScreen extends Screens {
 
     }
 
-    public void createNewPalabra() {
+    public void createNewWord() {
         oWord.init();
 
-        timerPalabra.remove();
-        timerPalabra.init(oWord.getCurrentWordColor(), initialTimeByWord);
-        stage.addActor(timerPalabra);
+        tableProgressbarTimer.remove();
+        tableProgressbarTimer.initialize(oWord.getCurrentWordColor(), initialTimeByWord);
+        stage.addActor(tableProgressbarTimer);
         stage.addActor(oWord.image);
     }
 
-    private void checarPalabra(boolean seleccion) {
+    private void checkWord(boolean selection) {
         if (state == STATE_RUNNING) {
 
-            if ((oWord.color == oWord.text && seleccion) || (oWord.color != oWord.text && !seleccion)) {
+            if ((oWord.color == oWord.text && selection) || (oWord.color != oWord.text && !selection)) {
                 score++;
                 Achievements.unlockScoreAchievements(score);
 
@@ -167,9 +166,9 @@ public class GameScreen extends Screens {
                 if (initialTimeByWord < MINIMUM_TIME_PER_WORD) {
                     initialTimeByWord = MINIMUM_TIME_PER_WORD;
                 }
-                createNewPalabra();
+                createNewWord();
             } else {
-                setGameover();
+                setGameOver();
             }
         }
 
@@ -185,8 +184,8 @@ public class GameScreen extends Screens {
             labelScore.setText(scoreAnterior + "");
         }
 
-        if (timerPalabra.timeIsOver) {
-            setGameover();
+        if (tableProgressbarTimer.timeIsOver) {
+            setGameOver();
         }
     }
 
@@ -207,12 +206,12 @@ public class GameScreen extends Screens {
     public void setRunning() {
         if (state == STATE_READY) {
             state = STATE_RUNNING;
-            createNewPalabra();
+            createNewWord();
         }
 
     }
 
-    private void setGameover() {
+    private void setGameOver() {
         if (state == STATE_RUNNING) {
             state = STATE_GAMEOVER;
 
@@ -221,8 +220,8 @@ public class GameScreen extends Screens {
             buttonFalse.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
             buttonTrue.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
-            timerPalabra.timeIsOver = true;
-            timerPalabra.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            tableProgressbarTimer.timeIsOver = true;
+            tableProgressbarTimer.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
             oWord.image.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
@@ -275,7 +274,7 @@ public class GameScreen extends Screens {
     private Label getLabel(String scoreText) {
         StringBuilder scoreTextColor = new StringBuilder();
 
-        // HOT FIX PARA PONER ENTRE LAS LETRAS COLORES OBVIAMENTE ESTA MAL PERO nO SE ME OCURRIO OTRA COSA
+        // HOT FIX : TO PUT COLORS BETWEEN THE LETTERS IS OBVIOUSLY WRONG BUT I COULD NOT THINK OF ANYTHING ELSE
         String[] apend = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                 "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                 "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",

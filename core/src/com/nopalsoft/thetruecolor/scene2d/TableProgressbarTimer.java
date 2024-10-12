@@ -6,30 +6,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nopalsoft.thetruecolor.Assets;
 
-public class ProgressbarTimer extends Table {
+public class TableProgressbarTimer extends Table {
     public static float WIDTH = 450;
     public static float HEIGHT = 30;
 
     private float totalTime;
     private float actualTime;
-    Image barra;
+    Image imageBar;
 
-    Color oColor;
+    Color color;
 
     public boolean timeIsOver;
 
-    public ProgressbarTimer(float x, float y) {
+    public TableProgressbarTimer(float x, float y) {
         this.setBounds(x, y, WIDTH, HEIGHT);
-        barra = new Image(Assets.barTimer);
-        addActor(barra);
+        imageBar = new Image(Assets.barTimer);
+        addActor(imageBar);
     }
 
-    public void init(Color color, float totalTime) {
-        oColor = color;
+    public void initialize(Color color, float totalTime) {
+        this.color = color;
         this.totalTime = totalTime;
         actualTime = 0;
-        barra.setSize(0, 30);
-        barra.setColor(oColor);
+        imageBar.setSize(0, 30);
+        imageBar.setColor(this.color);
         timeIsOver = false;
     }
 
@@ -43,7 +43,7 @@ public class ProgressbarTimer extends Table {
                 timeIsOver = true;
                 actualTime = totalTime;
             }
-            barra.setWidth(WIDTH * (actualTime / totalTime));
+            imageBar.setWidth(WIDTH * (actualTime / totalTime));
         }
 
     }
