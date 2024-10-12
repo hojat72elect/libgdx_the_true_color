@@ -257,17 +257,17 @@ public class GameScreen extends Screens {
 
             game.reqHandler.showAdBanner();
 
-            Settings.numVecesJugadas++;
-            if (Settings.numVecesJugadas % 7f == 0 || score > 80) {
+            Settings.numTimesPlayed++;
+            if (Settings.numTimesPlayed % 7f == 0 || score > 80) {
                 game.reqHandler.showInterstitial();
             }
 
 
-            if (!game.facebookHandler.facebookIsSignedIn() && (Settings.numVecesJugadas == 5 || Settings.numVecesJugadas == 10)) {
+            if (!game.facebookHandler.facebookIsSignedIn() && (Settings.numTimesPlayed == 5 || Settings.numTimesPlayed == 10)) {
                 new com.nopalsoft.thetruecolor.scene2d.DialogFacebook(this).show(stage);
             }
 
-            Achievements.unlockTimesPlayedAchievements(Settings.numVecesJugadas);
+            Achievements.unlockTimesPlayedAchievements(Settings.numTimesPlayed);
             Settings.save();
         }
     }

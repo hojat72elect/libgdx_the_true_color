@@ -53,8 +53,8 @@ public class Achievements {
             gameHandler.unlockStepAchievement(1, iLikeThisGame);
             gameHandler.unlockStepAchievement(1, iLoveThisGame);
         } else {
-            gameHandler.unlockStepAchievement(Settings.numVecesJugadas, iLikeThisGame);
-            gameHandler.unlockStepAchievement(Settings.numVecesJugadas * 100f / 250f, iLoveThisGame);//Para llegar al 100% se deben hacer 250 juegos
+            gameHandler.unlockStepAchievement(Settings.numTimesPlayed, iLikeThisGame);
+            gameHandler.unlockStepAchievement(Settings.numTimesPlayed * 100f / 250f, iLoveThisGame);//Para llegar al 100% se deben hacer 250 juegos
         }
     }
 
