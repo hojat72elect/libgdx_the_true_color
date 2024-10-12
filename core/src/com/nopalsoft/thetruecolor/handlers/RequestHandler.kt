@@ -1,16 +1,15 @@
-package com.nopalsoft.thetruecolor.handlers;
+package com.nopalsoft.thetruecolor.handlers
 
-public interface RequestHandler {
-    void showRater();
+interface RequestHandler {
+    fun showRater()
 
-    void loadInterstitial();
+    fun loadInterstitial()
 
-    void showInterstitial();
+    fun showInterstitial()
 
-    void shareAPK();
+    fun shareAPK()
 
-    void showAdBanner();
+    fun showAdBanner()
 
-    void hideAdBanner();
-
+    fun hideAdBanner()
 }

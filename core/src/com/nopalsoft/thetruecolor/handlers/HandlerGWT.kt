@@ -1,12 +1,11 @@
-package com.nopalsoft.thetruecolor.handlers;
+package com.nopalsoft.thetruecolor.handlers
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture
 
-public interface HandlerGWT {
-
-    void getTextureFromFacebook(String url, OnTextureLoaded onTextureLoaded);
+interface HandlerGWT {
+    fun getTextureFromFacebook(url: String?, onTextureLoaded: OnTextureLoaded?)
 
     interface OnTextureLoaded {
-        void onTextureLoaded(Texture texture);
+        fun onTextureLoaded(texture: Texture?)
     }
 }
