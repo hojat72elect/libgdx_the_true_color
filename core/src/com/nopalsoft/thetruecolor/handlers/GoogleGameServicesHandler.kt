@@ -1,5 +1,3 @@
-package com.nopalsoft.thetruecolor.handlers;
+package com.nopalsoft.thetruecolor.handlers
 
-public interface GoogleGameServicesHandler extends GameServicesHandler {
-
-}
+interface GoogleGameServicesHandler : GameServicesHandler
