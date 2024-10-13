@@ -1,60 +1,80 @@
-package com.nopalsoft.thetruecolor;
+package com.nopalsoft.thetruecolor
 
-import com.nopalsoft.thetruecolor.handlers.GameServicesHandler;
-import com.nopalsoft.thetruecolor.handlers.GoogleGameServicesHandler;
+import com.nopalsoft.thetruecolor.handlers.GameServicesHandler
+import com.nopalsoft.thetruecolor.handlers.GoogleGameServicesHandler
 
-public class Achievements {
+object Achievements {
 
-    static GameServicesHandler gameHandler;
+    private lateinit var gameHandler: GameServicesHandler
+    private lateinit var beginner: String
+    private lateinit var intermediate: String
+    private lateinit var advanced: String
+    private lateinit var expert: String
+    private lateinit var god: String
+    private lateinit var iLikeThisGame: String
+    private lateinit var iLoveThisGame: String
 
-    static String beginner, intermediate, advanced, expert, god, iLikeThisGame, iLoveThisGame;
+    fun initialize(game: TrueColorGame) {
+        gameHandler = game.gameServiceHandler
 
-    public static void init(TrueColorGame game) {
-        gameHandler = game.gameServiceHandler;
-
-        if (gameHandler instanceof GoogleGameServicesHandler) {
-            beginner = "CgkIvIu0qPsVEAIQAg";
-            intermediate = "CgkIvIu0qPsVEAIQBA";
-            advanced = "CgkIvIu0qPsVEAIQBQ";
-            expert = "CgkIvIu0qPsVEAIQBg";
-            god = "CgkIvIu0qPsVEAIQBw";
-            iLikeThisGame = "CgkIvIu0qPsVEAIQCw";
-            iLoveThisGame = "CgkIvIu0qPsVEAIQDA";
+        if (gameHandler is GoogleGameServicesHandler) {
+            beginner = "CgkIvIu0qPsVEAIQAg"
+            intermediate = "CgkIvIu0qPsVEAIQBA"
+            advanced = "CgkIvIu0qPsVEAIQBQ"
+            expert = "CgkIvIu0qPsVEAIQBg"
+            god = "CgkIvIu0qPsVEAIQBw"
+            iLikeThisGame = "CgkIvIu0qPsVEAIQCw"
+            iLoveThisGame = "CgkIvIu0qPsVEAIQDA"
         } else {
-            beginner = "BeginnerID";
-            intermediate = "IntermediateID";
-            advanced = "AdvancedID";
-            expert = "expertID";
-            god = "godId";
-            iLikeThisGame = "ILikeThisGameID";
-            iLoveThisGame = "ILoveThisGameId";
+            beginner = "BeginnerID"
+            intermediate = "IntermediateID"
+            advanced = "AdvancedID"
+            expert = "expertID"
+            god = "godId"
+            iLikeThisGame = "ILikeThisGameID"
+            iLoveThisGame = "ILoveThisGameId"
         }
-
     }
 
-    public static void unlockScoreAchievements(long num) {
+    @JvmStatic
+    fun unlockScoreAchievements(num: Long) {
+        when (num) {
+            250L -> {
+                gameHandler.unlockAchievement(god)
+            }
 
-        if (num == 250) {
-            gameHandler.unlockAchievement(god);
-        } else if (num == 175) {
-            gameHandler.unlockAchievement(expert);
-        } else if (num == 100) {
-            gameHandler.unlockAchievement(advanced);
-        } else if (num == 60) {
-            gameHandler.unlockAchievement(intermediate);
-        } else if (num == 30) {
-            gameHandler.unlockAchievement(beginner);
+            175L -> {
+                gameHandler.unlockAchievement(expert)
+            }
+
+            100L -> {
+                gameHandler.unlockAchievement(advanced)
+            }
+
+            60L -> {
+                gameHandler.unlockAchievement(intermediate)
+            }
+
+            30L -> {
+                gameHandler.unlockAchievement(beginner)
+            }
         }
-
     }
 
-    public static void unlockTimesPlayedAchievements() {
-        if (gameHandler instanceof GoogleGameServicesHandler) {
-            gameHandler.unlockStepAchievement(1, iLikeThisGame);
-            gameHandler.unlockStepAchievement(1, iLoveThisGame);
+    @JvmStatic
+    fun unlockTimesPlayedAchievements() {
+        if (gameHandler is GoogleGameServicesHandler) {
+            gameHandler.unlockStepAchievement(1F, iLikeThisGame)
+            gameHandler.unlockStepAchievement(1F, iLoveThisGame)
         } else {
-            gameHandler.unlockStepAchievement(Settings.numTimesPlayed, iLikeThisGame);
-            gameHandler.unlockStepAchievement(Settings.numTimesPlayed * 100f / 250f, iLoveThisGame);//Para llegar al 100% se deben hacer 250 juegos
+            gameHandler.unlockStepAchievement(
+                Settings.numTimesPlayed.toFloat(),
+                iLikeThisGame
+            )
+            gameHandler.unlockStepAchievement(
+                Settings.numTimesPlayed * 100f / 250f,
+                iLoveThisGame
+            ) // To reach 100% you must play 250 games
         }
     }
 

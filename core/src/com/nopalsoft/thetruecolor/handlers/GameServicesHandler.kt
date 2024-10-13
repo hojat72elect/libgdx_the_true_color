@@ -6,9 +6,9 @@ interface GameServicesHandler {
     fun submitScore(score: Long)
 
     // This method abstracts away GPGS or AGC.
-    fun unlockAchievement(achievementId: String)
+    fun unlockAchievement(achievementId: String?)
 
-    fun unlockStepAchievement(steps: Float, achievementID: String)
+    fun unlockStepAchievement(steps: Float, achievementID: String?)
 
     // This method abstracts away GPGS or AGC.
     fun getLeaderboard()

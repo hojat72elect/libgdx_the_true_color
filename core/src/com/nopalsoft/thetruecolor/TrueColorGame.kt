@@ -40,7 +40,7 @@ class TrueColorGame(
 
         Settings.load()
         Assets.load()
-        Achievements.init(this)
+        Achievements.initialize(this)
         screen = MainMenuScreen(this)
     }
 
