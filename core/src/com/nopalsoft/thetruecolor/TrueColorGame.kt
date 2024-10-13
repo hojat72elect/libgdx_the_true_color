@@ -1,109 +1,95 @@
-package com.nopalsoft.thetruecolor;
+package com.nopalsoft.thetruecolor
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.thetruecolor.handlers.FacebookHandler;
-import com.nopalsoft.thetruecolor.handlers.GameServicesHandler;
-import com.nopalsoft.thetruecolor.handlers.HandlerGWT;
-import com.nopalsoft.thetruecolor.handlers.HandlerGWT.OnTextureLoaded;
-import com.nopalsoft.thetruecolor.handlers.RequestHandler;
-import com.nopalsoft.thetruecolor.leaderboard.Person;
-import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
-import com.nopalsoft.thetruecolor.screens.Screens;
-import java.util.Iterator;
+import com.badlogic.gdx.utils.Array as GdxArray
+import com.badlogic.gdx.Game
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.nopalsoft.thetruecolor.handlers.FacebookHandler
+import com.nopalsoft.thetruecolor.handlers.GameServicesHandler
+import com.nopalsoft.thetruecolor.handlers.HandlerGWT
+import com.nopalsoft.thetruecolor.handlers.HandlerGWT.OnTextureLoaded
+import com.nopalsoft.thetruecolor.handlers.RequestHandler
+import com.nopalsoft.thetruecolor.leaderboard.Person
+import com.nopalsoft.thetruecolor.leaderboard.Person.AccountType
+import com.nopalsoft.thetruecolor.screens.MainMenuScreen
+import com.nopalsoft.thetruecolor.screens.Screens
 
-public class TrueColorGame extends Game {
-    public Array<Person> arrPerson;
+class TrueColorGame(
+    @JvmField
+    val reqHandler: RequestHandler,
+    @JvmField
+    val gameServiceHandler: GameServicesHandler,
+    @JvmField
+    val facebookHandler: FacebookHandler,
+    private val handlerGWT: HandlerGWT
+) : Game() {
 
-    public final GameServicesHandler gameServiceHandler;
-    public final RequestHandler reqHandler;
-    public final FacebookHandler facebookHandler;
-    public final HandlerGWT handlerGWT;
+    @JvmField
+    var arrPerson: GdxArray<Person>? = null
+    lateinit var stage: Stage
+    lateinit var batcher: SpriteBatch
 
-    public TrueColorGame(RequestHandler reqHandler,
-                         GameServicesHandler gameServiceHandler,
-                         FacebookHandler facebookHandler,
-                         HandlerGWT handlerGWT) {
-        this.reqHandler = reqHandler;
-        this.gameServiceHandler = gameServiceHandler;
-        this.facebookHandler = facebookHandler;
-        this.handlerGWT = handlerGWT;
+    override fun create() {
+        stage =
+            Stage(StretchViewport(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat()))
+        batcher = SpriteBatch()
+
+        Settings.load()
+        Assets.load()
+        Achievements.init(this)
+        screen = MainMenuScreen(this)
     }
 
-    public Stage stage;
-    public SpriteBatch batcher;
-
-    @Override
-    public void create() {
-
-        stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
-        batcher = new SpriteBatch();
-
-        Settings.load();
-        Assets.load();
-        com.nopalsoft.thetruecolor.Achievements.init(this);
-        setScreen(new MainMenuScreen(this));
-
-    }
-
-    public void setArrayPerson(Array<Person> _arrPerson) {
+    fun setArrayPerson(_arrPerson: GdxArray<Person>) {
         if (arrPerson == null) {
-            arrPerson = _arrPerson;
+            arrPerson = _arrPerson
         } else {
-            for (Person oPerson : _arrPerson) {
-                if (!arrPerson.contains(oPerson, false))// false to compare by equals which I already overwrote.
-                    arrPerson.add(oPerson);
-                else {
-                    arrPerson.get(arrPerson.indexOf(oPerson, false)).updateData(oPerson.name, oPerson.score);
+            for (oPerson in _arrPerson) {
+                if (!arrPerson!!.contains(oPerson, false)) { // false to compare by equals
+                    arrPerson!!.add(oPerson)
+                } else {
+                    val index = arrPerson!!.indexOf(oPerson, false)
+                    arrPerson!![index].updateData(oPerson.name, oPerson.score)
                 }
             }
         }
 
-        for (Person oPerson : arrPerson) {
-            getPersonPhoto(oPerson);
-        }
+        arrPerson?.forEach { getPersonPhoto(it) }
 
         // If I'm not in the main menu, it doesn't update.
-        if (getScreen() instanceof MainMenuScreen) {
-            MainMenuScreen oScreen = (MainMenuScreen) getScreen();
-            oScreen.updateLeaderboard();
+        if (screen is MainMenuScreen) {
+            (screen as MainMenuScreen).updateLeaderboard()
         }
-
     }
 
-    private void getPersonPhoto(final Person oPerson) {
-        handlerGWT.getTextureFromFacebook("https://picsum.photos/200", new OnTextureLoaded() {
-            @Override
-            public void onTextureLoaded(Texture texture) {
-                oPerson.setPicture(new TextureRegionDrawable(new TextureRegion(texture)));
+    private fun getPersonPhoto(oPerson: Person) {
+        handlerGWT.getTextureFromFacebook("https://picsum.photos/200", object : OnTextureLoaded {
+            override fun onTextureLoaded(texture: Texture?) {
+                oPerson.setPicture(TextureRegionDrawable(TextureRegion(texture)))
             }
-        });
+        })
     }
 
     /**
      * Called when the Facebook session is closed, removes all Facebook users from the table.
      */
-    public void removeFromArray(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType cuenta) {
-        if (arrPerson == null)
-            return;
+    fun removeFromArray(cuenta: AccountType) {
+        if (arrPerson == null) return
 
-        Iterator<Person> i = arrPerson.iterator();
+        val i = arrPerson!!.iterator()
         while (i.hasNext()) {
-            Person obj = i.next();
-            if (obj.accountType == cuenta)
-                i.remove();
+            val obj = i.next()
+            if (obj.accountType == cuenta) i.remove()
         }
 
         // If I'm not in the main menu, it won't update.
-        if (getScreen() instanceof MainMenuScreen) {
-            MainMenuScreen oScreen = (MainMenuScreen) getScreen();
-            oScreen.updateLeaderboard();
+        if (getScreen() is MainMenuScreen) {
+            val oScreen = getScreen() as MainMenuScreen
+            oScreen.updateLeaderboard()
         }
     }
 }
