@@ -35,7 +35,7 @@ class TrueColorGame(
 
     override fun create() {
         stage =
-            Stage(StretchViewport(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat()))
+            Stage(StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT))
         batcher = SpriteBatch()
 
         Settings.load()
