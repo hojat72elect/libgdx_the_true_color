@@ -63,10 +63,8 @@ public class Assets {
 
     public static TextButtonStyle textButtonStyle;
 
-    private static TextureAtlas atlas;
-
     public static void load() {
-        atlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
+        TextureAtlas atlas = new TextureAtlas(com.badlogic.gdx.Gdx.files.internal("data/atlasMap.txt"));
 
         fontSmall = new BitmapFont(Gdx.files.internal("data/font32.fnt"), atlas.findRegion("font32"));
         fontSmall.getData().markupEnabled = true;
