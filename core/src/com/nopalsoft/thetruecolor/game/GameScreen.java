@@ -57,7 +57,7 @@ public class GameScreen extends Screens {
         int buttonSize = 90;
 
         buttonTrue = new Button(Assets.buttonTrue);
-        addEfectoPress(buttonTrue);
+        addPressEffect(buttonTrue);
         buttonTrue.setSize(buttonSize, buttonSize);
         buttonTrue.setPosition(240 + 80, 60);
         buttonTrue.addListener(new ClickListener() {
@@ -68,7 +68,7 @@ public class GameScreen extends Screens {
         });
 
         buttonFalse = new Button(Assets.buttonFalse);
-        addEfectoPress(buttonFalse);
+        addPressEffect(buttonFalse);
         buttonFalse.setSize(buttonSize, buttonSize);
         buttonFalse.setPosition(240 - 170, 60);
         buttonFalse.addListener(new ClickListener() {
@@ -81,7 +81,7 @@ public class GameScreen extends Screens {
         });
 
         buttonBack = new Button(Assets.buttonBack);
-        addEfectoPress(buttonBack);
+        addPressEffect(buttonBack);
         buttonBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -92,7 +92,7 @@ public class GameScreen extends Screens {
         });
 
         buttonTryAgain = new Button(Assets.buttonTryAgain);
-        addEfectoPress(buttonTryAgain);
+        addPressEffect(buttonTryAgain);
         buttonTryAgain.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -103,7 +103,7 @@ public class GameScreen extends Screens {
         });
 
         buttonShare = new Button(Assets.buttonShare);
-        addEfectoPress(buttonShare);
+        addPressEffect(buttonShare);
         buttonShare.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

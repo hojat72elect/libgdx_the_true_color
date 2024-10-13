@@ -30,7 +30,7 @@ public class DialogGoogle extends Dialog {
         lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 140);
 
         btGoogleLogin = new TextButton("", new TextButtonStyle(Assets.buttonGoogleText, null, null, Assets.fontSmall));
-        screen.addEfectoPress(btGoogleLogin);
+        screen.addPressEffect(btGoogleLogin);
         btGoogleLogin.getLabel().setFontScale(.75f);
 
         btGoogleLogin.addListener(new ClickListener() {

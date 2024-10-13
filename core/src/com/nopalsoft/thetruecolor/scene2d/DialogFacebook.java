@@ -30,7 +30,7 @@ public class DialogFacebook extends Dialog {
         lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 140);
 
         btFacebookLogin = new TextButton("", new TextButtonStyle(Assets.buttonFacebookText, null, null, Assets.fontSmall));
-        screen.addEfectoPress(btFacebookLogin);
+        screen.addPressEffect(btFacebookLogin);
         btFacebookLogin.getLabel().setFontScale(.75f);
 
         btFacebookLogin.addListener(new ClickListener() {

@@ -30,7 +30,7 @@ public class DialogAmazon extends Dialog {
         lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 165);
 
         btAmazonLogin = new TextButton("", new TextButtonStyle(Assets.buttonPlay, null, null, Assets.fontSmall));
-        screen.addEfectoPress(btAmazonLogin);
+        screen.addPressEffect(btAmazonLogin);
         btAmazonLogin.getLabel().setFontScale(.75f);
 
         btAmazonLogin.addListener(new ClickListener() {

@@ -58,7 +58,7 @@ abstract class Screens(@JvmField val game: TrueColorGame) : InputAdapter(), Scre
         stage.addActor(blackFadeOut)
     }
 
-    fun addEfectoPress(actor: Actor) {
+    fun addPressEffect(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(
                 event: InputEvent,

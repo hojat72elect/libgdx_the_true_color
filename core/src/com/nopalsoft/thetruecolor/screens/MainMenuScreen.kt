@@ -1,175 +1,146 @@
-package com.nopalsoft.thetruecolor.screens;
+package com.nopalsoft.thetruecolor.screens
 
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.Settings;
-import com.nopalsoft.thetruecolor.game.GameScreen;
-import com.nopalsoft.thetruecolor.leaderboard.DialogRanking;
-import com.nopalsoft.thetruecolor.leaderboard.Person;
-import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings;
+import com.badlogic.gdx.Application.ApplicationType
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.nopalsoft.thetruecolor.Assets
+import com.nopalsoft.thetruecolor.Assets.loadAssetsWithSettings
+import com.nopalsoft.thetruecolor.Settings
+import com.nopalsoft.thetruecolor.Settings.save
+import com.nopalsoft.thetruecolor.TrueColorGame
+import com.nopalsoft.thetruecolor.game.GameScreen
+import com.nopalsoft.thetruecolor.leaderboard.DialogRanking
+import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings
 
-public class MainMenuScreen extends Screens {
+class MainMenuScreen(game: TrueColorGame) : Screens(game) {
 
-    Image imageTitle;
-    DialogRanking dialogRanking;
+    private val imageTitle = Image(Assets.title)
+    private val dialogRanking = DialogRanking(this)
+    private val buttonPlay = ImageButton(ImageButtonStyle(Assets.buttonPlay, null, null, Assets.play, null, null))
+    private val menuUI = Table()
+    private val buttonRate = Button(Assets.buttonRate)
+    private val buttonLeaderboard = Button(Assets.buttonLeaderboard)
+    private val buttonAchievement = Button(Assets.buttonAchievement)
+    private val buttonHelp = Button(Assets.buttonHelp)
+    private val helpWindowSettings = DialogHelpSettings(this)
 
-    ImageButton buttonPlay;
-
-    Table menuUI;
-    Button buttonRate, buttonLeaderboard, buttonAchievement, buttonHelp;
-
-    DialogHelpSettings ventanaHelp;
-
-    public MainMenuScreen(final com.nopalsoft.thetruecolor.TrueColorGame game) {
-        super(game);
-
-        imageTitle = new Image(Assets.title);
-        imageTitle.setPosition(SCREEN_WIDTH / 2f - imageTitle.getWidth() / 2f, 610);
-
-        ventanaHelp = new com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings(this);
-        dialogRanking = new DialogRanking(this);
-
-        buttonPlay = new ImageButton(new ImageButtonStyle(Assets.buttonPlay, null, null, Assets.play, null, null));
-        addEfectoPress(buttonPlay);
-        buttonPlay.getImageCell().padLeft(10).size(47, 54);// Centro la imagen play con el pad, y le pongo el tamano
-        buttonPlay.setSize(288, 72);
-        buttonPlay.setPosition(SCREEN_WIDTH / 2f - buttonPlay.getWidth() / 2f, 120);
-        buttonPlay.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                changeScreenWithFadeOut(GameScreen.class, game);
+    init {
+        imageTitle.setPosition(SCREEN_WIDTH / 2f - imageTitle.width / 2f, 610f)
+        addPressEffect(buttonPlay)
+        buttonPlay.imageCell.padLeft(10f).size(47f, 54f) // I center the play image with the pad, and set the size.
+        buttonPlay.setSize(288f, 72f)
+        buttonPlay.setPosition(SCREEN_WIDTH / 2f - buttonPlay.width / 2f, 120f)
+        buttonPlay.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent, x: Float, y: Float) {
+                changeScreenWithFadeOut(GameScreen::class.java, game)
             }
-        });
+        })
 
-        buttonRate = new Button(Assets.buttonRate);
-        addEfectoPress(buttonRate);
-        buttonRate.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showRater();
+
+        addPressEffect(buttonRate)
+        buttonRate.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent, x: Float, y: Float) {
+                game.reqHandler.showRater()
             }
-        });
+        })
 
-        buttonLeaderboard = new Button(Assets.buttonLeaderboard);
-        addEfectoPress(buttonLeaderboard);
-        buttonLeaderboard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getLeaderboard();
-                else
-                    game.gameServiceHandler.signIn();
+        addPressEffect(buttonLeaderboard)
+        buttonLeaderboard.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent, x: Float, y: Float) {
+                if (game.gameServiceHandler.isSignedIn()) game.gameServiceHandler.getLeaderboard()
+                else game.gameServiceHandler.signIn()
             }
-        });
+        })
 
-        buttonAchievement = new Button(Assets.buttonAchievement);
-        addEfectoPress(buttonAchievement);
-        buttonAchievement.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getAchievements();
-                else
-                    game.gameServiceHandler.signIn();
-
+        addPressEffect(buttonAchievement)
+        buttonAchievement.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent, x: Float, y: Float) {
+                if (game.gameServiceHandler.isSignedIn()) game.gameServiceHandler.getAchievements()
+                else game.gameServiceHandler.signIn()
             }
-        });
+        })
 
-        buttonHelp = new Button(Assets.buttonHelp);
-        addEfectoPress(buttonHelp);
-        buttonHelp.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ventanaHelp.show(stage);
+        addPressEffect(buttonHelp)
+        buttonHelp.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent, x: Float, y: Float) {
+                helpWindowSettings.show(stage)
             }
-        });
+        })
 
-        menuUI = new Table();
-        menuUI.setSize(SCREEN_WIDTH, 70);
-        menuUI.setPosition(0, 35);
-        menuUI.defaults().size(70).expand();
+        menuUI.setSize(SCREEN_WIDTH, 70f)
+        menuUI.setPosition(0f, 35f)
+        menuUI.defaults().size(70f).expand()
 
-        if (Gdx.app.getType() != ApplicationType.WebGL) {
-            menuUI.add(buttonRate);
-            menuUI.add(buttonLeaderboard);
-            menuUI.add(buttonAchievement);
+        if (Gdx.app.type != ApplicationType.WebGL) {
+            menuUI.add(buttonRate)
+            menuUI.add(buttonLeaderboard)
+            menuUI.add(buttonAchievement)
         }
-        menuUI.add(buttonHelp);
+        menuUI.add(buttonHelp)
 
-        stage.addActor(imageTitle);
-        stage.addActor(dialogRanking);
-        stage.addActor(buttonPlay);
-        stage.addActor(menuUI);
+        stage.addActor(imageTitle)
+        stage.addActor(dialogRanking)
+        stage.addActor(buttonPlay)
+        stage.addActor(menuUI)
 
-        if (game.arrPerson != null)
-            updateLeaderboard();
+        if (game.arrPerson != null) updateLeaderboard()
 
-        if (game.facebookHandler.facebookIsSignedIn())
-            game.facebookHandler.facebookGetScores();
+        if (game.facebookHandler.facebookIsSignedIn()) game.facebookHandler.facebookGetScores()
 
-        if (game.gameServiceHandler.isSignedIn())
-            game.gameServiceHandler.getScores();
-
+        if (game.gameServiceHandler.isSignedIn()) game.gameServiceHandler.getScores()
     }
 
-    @Override
-    public void update(float delta) {
-
+    override fun update(delta: Float) {
     }
 
-    @Override
-    public void draw(float delta) {
-        batcher.begin();
-        batcher.draw(Assets.header, 0, 780, 480, 20);
-        batcher.draw(Assets.header, 0, 0, 480, 20);
-        batcher.end();
+    override fun draw(delta: Float) {
+        batcher.begin()
+        batcher.draw(Assets.header, 0f, 780f, 480f, 20f)
+        batcher.draw(Assets.header, 0f, 0f, 480f, 20f)
+        batcher.end()
     }
 
-    public void updateLeaderboard() {
-        dialogRanking.clearLeaderboard();
-        game.arrPerson.sort();// Acomoda de mayor a menor
-        for (Person obj : game.arrPerson) {
-            dialogRanking.addPerson(obj);
+    fun updateLeaderboard() {
+        dialogRanking.clearLeaderboard()
+        game.arrPerson!!.sort() // Arrange from largest to smallest
+        for (obj in game.arrPerson!!) {
+            dialogRanking.addPerson(obj)
         }
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Keys.BACK | keycode == Keys.ESCAPE) {
-            Gdx.app.exit();
-            return true;
-        } else if (keycode == Keys.E) {
-            Settings.selectedLanguage = DialogHelpSettings.Languages.ENGLISH;
-            Settings.save();
-            Assets.loadAssetsWithSettings();
-            game.setScreen(new MainMenuScreen(game));
-        } else if (keycode == Keys.R) {
-            Settings.selectedLanguage = DialogHelpSettings.Languages.SPANISH;
-            Settings.save();
-            Assets.loadAssetsWithSettings();
-            game.setScreen(new MainMenuScreen(game));
-        } else if (keycode == Keys.T) {
-            Settings.selectedLanguage = DialogHelpSettings.Languages.CHINESE_TAIWAN;
-            Settings.save();
-            Assets.loadAssetsWithSettings();
-            game.setScreen(new MainMenuScreen(game));
-        } else if (keycode == Keys.Y) {
-            Settings.selectedLanguage = DialogHelpSettings.Languages.DEFAULT;
-            Settings.save();
-            Assets.loadAssetsWithSettings();
-            game.setScreen(new MainMenuScreen(game));
+    override fun keyDown(keycode: Int): Boolean {
+        if ((keycode == Input.Keys.BACK) or (keycode == Input.Keys.ESCAPE)) {
+            Gdx.app.exit()
+            return true
+        } else if (keycode == Input.Keys.E) {
+            Settings.selectedLanguage = DialogHelpSettings.Languages.ENGLISH
+            save()
+            loadAssetsWithSettings()
+            game.screen = MainMenuScreen(game)
+        } else if (keycode == Input.Keys.R) {
+            Settings.selectedLanguage = DialogHelpSettings.Languages.SPANISH
+            save()
+            loadAssetsWithSettings()
+            game.screen = MainMenuScreen(game)
+        } else if (keycode == Input.Keys.T) {
+            Settings.selectedLanguage = DialogHelpSettings.Languages.CHINESE_TAIWAN
+            save()
+            loadAssetsWithSettings()
+            game.screen = MainMenuScreen(game)
+        } else if (keycode == Input.Keys.Y) {
+            Settings.selectedLanguage = DialogHelpSettings.Languages.DEFAULT
+            save()
+            loadAssetsWithSettings()
+            game.screen = MainMenuScreen(game)
         }
 
-        return super.keyDown(keycode);
+        return super.keyDown(keycode)
     }
-
 }

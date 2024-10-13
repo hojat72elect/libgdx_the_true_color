@@ -31,7 +31,7 @@ class DialogMoreLanguages(currentScreen: Screens) : Dialog(currentScreen, WIDTH,
             height / 2f - labelText.height / 2f + 30
         )
 
-        screen.addEfectoPress(textButtonTranslate)
+        screen.addPressEffect(textButtonTranslate)
         textButtonTranslate.label.setFontScale(.75f)
 
         textButtonTranslate.addListener(object : ClickListener() {

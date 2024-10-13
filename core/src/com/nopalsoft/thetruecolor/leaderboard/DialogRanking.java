@@ -56,7 +56,7 @@ public class DialogRanking extends Group {
 
         btFacebook = new Button(Assets.buttonFacebook);
 
-        menuScreen.addEfectoPress(btFacebook);
+        menuScreen.addPressEffect(btFacebook);
         btFacebook.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -71,7 +71,7 @@ public class DialogRanking extends Group {
 
         btGoogle = new Button(btLoginKeyFrame);
 
-        menuScreen.addEfectoPress(btGoogle);
+        menuScreen.addPressEffect(btGoogle);
         btGoogle.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
