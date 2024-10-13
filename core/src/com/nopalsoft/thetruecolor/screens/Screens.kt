@@ -18,7 +18,7 @@ import com.nopalsoft.thetruecolor.game.GameScreen
 
 abstract class Screens(@JvmField val game: TrueColorGame) : InputAdapter(), Screen {
 
-    val oCam = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
+    private val camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     @JvmField
     val batcher = game.batcher
@@ -29,7 +29,7 @@ abstract class Screens(@JvmField val game: TrueColorGame) : InputAdapter(), Scre
     init {
 
         stage.clear()
-        oCam.position.set(SCREEN_WIDTH / 2F, SCREEN_HEIGHT / 2F, 0F)
+        camera.position.set(SCREEN_WIDTH / 2F, SCREEN_HEIGHT / 2F, 0F)
         Gdx.input.inputProcessor = InputMultiplexer(this, stage)
     }
 
@@ -39,8 +39,8 @@ abstract class Screens(@JvmField val game: TrueColorGame) : InputAdapter(), Scre
         Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        oCam.update()
-        batcher.projectionMatrix = oCam.combined
+        camera.update()
+        batcher.projectionMatrix = camera.combined
         draw(delta)
 
         stage.act(delta)
