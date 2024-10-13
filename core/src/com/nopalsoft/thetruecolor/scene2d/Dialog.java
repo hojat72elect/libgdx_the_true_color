@@ -11,14 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.TrueColorGame;
 
 public class Dialog extends Group {
-    public static final float DURACION_ANIMATION = .3f;
+    public static final float ANIMATION_DURATION = .3f;
 
     private final Image dim;
     protected Screens screen;
     protected I18NBundle languages;
-    protected com.nopalsoft.thetruecolor.TrueColorGame game;
+    protected TrueColorGame game;
 
 
     public Dialog(Screens currentScreen, float width, float height, float positionY) {
@@ -63,10 +64,10 @@ public class Dialog extends Group {
         setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
         setScale(.5f);
-        addAction(Actions.scaleTo(1, 1, DURACION_ANIMATION));
+        addAction(Actions.scaleTo(1, 1, ANIMATION_DURATION));
 
         dim.getColor().a = 0;
-        dim.addAction(Actions.alpha(.7f, DURACION_ANIMATION));
+        dim.addAction(Actions.alpha(.7f, ANIMATION_DURATION));
 
         stage.addActor(dim);
         stage.addActor(this);
@@ -76,8 +77,8 @@ public class Dialog extends Group {
 
     public void hide() {
         game.reqHandler.hideAdBanner();
-        addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, DURACION_ANIMATION), Actions.removeActor()));
-        dim.addAction(Actions.sequence(Actions.alpha(0, DURACION_ANIMATION), Actions.removeActor()));
+        addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, ANIMATION_DURATION), Actions.removeActor()));
+        dim.addAction(Actions.sequence(Actions.alpha(0, ANIMATION_DURATION), Actions.removeActor()));
 
     }
 
