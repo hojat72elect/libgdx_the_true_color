@@ -138,7 +138,7 @@ public class GameScreen extends Screens {
     }
 
     public void createNewWord() {
-        oWord.init();
+        oWord.initialize();
 
         tableProgressbarTimer.remove();
         tableProgressbarTimer.initialize(oWord.getCurrentWordColor(), initialTimeByWord);

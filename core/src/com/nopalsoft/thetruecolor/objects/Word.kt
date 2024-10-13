@@ -1,127 +1,100 @@
-package com.nopalsoft.thetruecolor.objects;
+package com.nopalsoft.thetruecolor.objects
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.Settings;
-import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings.Languages;
-import com.nopalsoft.thetruecolor.screens.Screens;
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.nopalsoft.thetruecolor.Assets
+import com.nopalsoft.thetruecolor.Settings
+import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings.Languages
+import com.nopalsoft.thetruecolor.screens.Screens
 
-public class Word {
-    public static final int COLOR_BLUE = 0;
-    public static final int COLOR_CYAN = 1;
-    public static final int COLOR_GREEN = 2;
-    public static final int COLOR_YELLOW = 3;
+class Word {
 
-    /**
-     * The color of the word.
-     */
-    public int color;
+    @JvmField
+    val image = Label("", Label.LabelStyle(Assets.fontExtraLarge, Color.WHITE))
 
-    /**
-     * What the word compare says with the table above.
-     */
-    public int text;
+    // The color of the word.
+    @JvmField
+    var color = 0
 
-    public Label image;
+    // What the word compare says with the table above.
+    @JvmField
+    var text = 0
 
-    public Word() {
-        image = new Label("", new LabelStyle(Assets.fontExtraLarge, Color.WHITE));
-    }
 
-    public void init() {
-        color = MathUtils.random(0, 7);
+    fun initialize() {
+        color = MathUtils.random(0, 7)
+
 
         // 35% chance that what the word says and its color are the same.
-        if (MathUtils.randomBoolean(.35f)) {
-            text = color;
+        text = if (MathUtils.randomBoolean(.35f)) {
+            color
         } else {
-            text = MathUtils.random(0, 7);
+            MathUtils.random(0, 7)
         }
 
-        String textColor;
-        switch (text) {
-            case COLOR_BLUE:
-                textColor = "blue";
-                break;
-            case COLOR_CYAN:
-                textColor = "cyan";
-                break;
-            case COLOR_GREEN:
-                textColor = "green";
-                break;
-            case COLOR_YELLOW:
-                textColor = "yellow";
-                break;
-            case 4:
-                textColor = "pink";
-                break;
-            case 5:
-                textColor = "brown";
-                break;
-            case 6:
-                textColor = "purple";
-                break;
-            default:
-            case 7:
-                textColor = "red";
-                break;
+        val textColor = when (text) {
+            COLOR_BLUE -> "blue"
+            COLOR_CYAN -> "cyan"
+            COLOR_GREEN -> "green"
+            COLOR_YELLOW -> "yellow"
+            4 -> "pink"
+            5 -> "brown"
+            6 -> "purple"
+            7 -> "red"
+            else -> "red"
         }
 
-        image.remove();
-        image.setText(Assets.languages.get(textColor));
-        image.setColor(getCurrentWordColor());
-        if (Settings.selectedLanguage == Languages.RUSSIAN)
-            image.setFontScale(.68f);
-        else
-            image.setFontScale(1);
-        image.pack();
-        image.setPosition(Screens.SCREEN_WIDTH / 2f - image.getWidth() / 2f, 450);
+        image.remove()
+        image.setText(Assets.languages[textColor])
+        image.color = getCurrentWordColor()
+        image.setFontScale(if (Settings.selectedLanguage == Languages.RUSSIAN) 0.68f else 1f)
+        image.pack()
+        image.setPosition(Screens.SCREEN_WIDTH / 2f - image.width / 2f, 450f)
     }
 
     /**
      * It is the color of the word.
      */
-    public Color getCurrentWordColor() {
-        return getColor(color);
-    }
+    fun getCurrentWordColor() = getColor(color)
 
-    public static Color getColor(int wordColor) {
-        Color color;
-        switch (wordColor) {
-            case 0:
-                color = Color.BLUE;
-                break;
-            case 1:
-                color = Color.CYAN;
-                break;
-            case 2:
-                color = Color.GREEN;
-                break;
-            case 3:
-                color = Color.YELLOW;
-                break;
-            case 4:
-                color = Color.PINK;
-                break;
-            case 5:
-                color = new Color(.6f, .3f, 0, 1);// Cafe
-                break;
-            case 6:
-                color = Color.PURPLE;
-                break;
-            default:
-            case 7:
-                color = Color.RED;
-                break;
+    private fun getColor(wordColor: Int): Color {
+        val color = when (wordColor) {
+            0 -> Color.BLUE
+            1 -> Color.CYAN
+            2 -> Color.GREEN
+            3 -> Color.YELLOW
+            4 -> Color.PINK
+            5 -> Color(.6f, .3f, 0f, 1f) // Cafe
+            6 -> Color.PURPLE
+            7 -> Color.RED
+            else -> Color.RED
         }
-        return color;
+        return color
     }
 
-    public static Color getRandomColor() {
-        return getColor(MathUtils.random(7));
-    }
+    companion object {
 
+        // all the different colors that the word can have
+        const val COLOR_BLUE = 0
+        const val COLOR_CYAN = 1
+        const val COLOR_GREEN = 2
+        const val COLOR_YELLOW = 3
+
+        private fun getColor(wordColor: Int): Color = when (wordColor) {
+            0 -> Color.BLUE
+            1 -> Color.CYAN
+            2 -> Color.GREEN
+            3 -> Color.YELLOW
+            4 -> Color.PINK
+            5 -> Color(.6f, .3f, 0f, 1f) // Cafe
+            6 -> Color.PURPLE
+            7 -> Color.RED
+            else -> Color.RED
+        }
+
+        @JvmStatic
+        fun getRandomColor() = getColor(MathUtils.random(7))
+
+    }
 }
