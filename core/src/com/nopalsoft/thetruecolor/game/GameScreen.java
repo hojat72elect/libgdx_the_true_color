@@ -266,7 +266,7 @@ public class GameScreen extends Screens {
                 new com.nopalsoft.thetruecolor.scene2d.DialogFacebook(this).show(stage);
             }
 
-            Achievements.unlockTimesPlayedAchievements(Settings.numTimesPlayed);
+            Achievements.unlockTimesPlayedAchievements();
             Settings.save();
         }
     }

@@ -7,13 +7,13 @@ public class Achievements {
 
     static GameServicesHandler gameHandler;
 
-    static String begginer, intermediate, advanced, expert, god, iLikeThisGame, iLoveThisGame;
+    static String beginner, intermediate, advanced, expert, god, iLikeThisGame, iLoveThisGame;
 
     public static void init(TrueColorGame game) {
         gameHandler = game.gameServiceHandler;
 
         if (gameHandler instanceof GoogleGameServicesHandler) {
-            begginer = "CgkIvIu0qPsVEAIQAg";
+            beginner = "CgkIvIu0qPsVEAIQAg";
             intermediate = "CgkIvIu0qPsVEAIQBA";
             advanced = "CgkIvIu0qPsVEAIQBQ";
             expert = "CgkIvIu0qPsVEAIQBg";
@@ -21,7 +21,7 @@ public class Achievements {
             iLikeThisGame = "CgkIvIu0qPsVEAIQCw";
             iLoveThisGame = "CgkIvIu0qPsVEAIQDA";
         } else {
-            begginer = "BeginnerID";
+            beginner = "BeginnerID";
             intermediate = "IntermediateID";
             advanced = "AdvancedID";
             expert = "expertID";
@@ -43,12 +43,12 @@ public class Achievements {
         } else if (num == 60) {
             gameHandler.unlockAchievement(intermediate);
         } else if (num == 30) {
-            gameHandler.unlockAchievement(begginer);
+            gameHandler.unlockAchievement(beginner);
         }
 
     }
 
-    public static void unlockTimesPlayedAchievements(int num) {
+    public static void unlockTimesPlayedAchievements() {
         if (gameHandler instanceof GoogleGameServicesHandler) {
             gameHandler.unlockStepAchievement(1, iLikeThisGame);
             gameHandler.unlockStepAchievement(1, iLoveThisGame);
