@@ -44,11 +44,11 @@ class TrueColorGame(
         screen = MainMenuScreen(this)
     }
 
-    fun setArrayPerson(_arrPerson: GdxArray<Person>) {
+    fun setArrayPerson(people: GdxArray<Person>) {
         if (arrPerson == null) {
-            arrPerson = _arrPerson
+            arrPerson = people
         } else {
-            for (oPerson in _arrPerson) {
+            for (oPerson in people) {
                 if (!arrPerson!!.contains(oPerson, false)) { // false to compare by equals
                     arrPerson!!.add(oPerson)
                 } else {

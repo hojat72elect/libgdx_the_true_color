@@ -46,7 +46,7 @@ class Word {
         }
 
         image.remove()
-        image.setText(Assets.languages[textColor])
+        image.setText(Assets.languages.get(textColor))
         image.color = getCurrentWordColor()
         image.setFontScale(if (Settings.selectedLanguage == Languages.RUSSIAN) 0.68f else 1f)
         image.pack()

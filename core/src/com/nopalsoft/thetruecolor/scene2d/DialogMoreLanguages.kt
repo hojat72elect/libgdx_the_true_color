@@ -15,11 +15,11 @@ import com.nopalsoft.thetruecolor.screens.Screens
 class DialogMoreLanguages(currentScreen: Screens) : Dialog(currentScreen, WIDTH, HEIGHT, 300F) {
 
     private val labelText = Label(
-        Assets.languages.get("translateDescription"),
+        Assets.languages?.get("translateDescription"),
         Label.LabelStyle(Assets.fontSmall, Color.BLACK)
     )
     private val textButtonTranslate =
-        TextButton(Assets.languages.get("translate"), Assets.textButtonStyle)
+        TextButton(Assets.languages?.get("translate"), Assets.textButtonStyle)
 
     init {
         setCloseButton(210F)

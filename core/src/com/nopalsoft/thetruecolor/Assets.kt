@@ -1,156 +1,184 @@
-package com.nopalsoft.thetruecolor;
+package com.nopalsoft.thetruecolor
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.I18NBundle;
-import java.util.Locale;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.NinePatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.I18NBundle
+import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings.Languages
+import java.util.Locale
 
-public class Assets {
+object Assets {
 
-    public static I18NBundle languages;
+    lateinit var languages: I18NBundle
 
-    public static BitmapFont fontSmall;
-    public static BitmapFont fontExtraLarge;
+    lateinit var fontSmall: BitmapFont
 
-    public static TextureRegionDrawable title;
-    public static AtlasRegion header;
+    lateinit var fontExtraLarge: BitmapFont
 
-    public static NinePatchDrawable pixelBlack;
-    public static NinePatchDrawable barTimer;
-    public static NinePatchDrawable dialogRanking;
-    public static NinePatchDrawable dialogWindow;
+    lateinit var title: TextureRegionDrawable
 
-    public static TextureRegionDrawable photoFrame;
-    public static TextureRegionDrawable buttonFacebook;
-    public static NinePatchDrawable buttonFacebookText;
-    public static TextureRegionDrawable buttonGoogle;
-    public static NinePatchDrawable buttonGoogleText;
-    public static TextureRegionDrawable buttonAmazon;
+    lateinit var header: AtlasRegion
 
-    public static TextureRegionDrawable one;
-    public static TextureRegionDrawable two;
-    public static TextureRegionDrawable three;
+    lateinit var pixelBlack: NinePatchDrawable
 
-    public static TextureRegionDrawable buttonRate;
-    public static TextureRegionDrawable buttonAchievement;
-    public static TextureRegionDrawable buttonLeaderboard;
-    public static TextureRegionDrawable buttonHelp;
-    public static TextureRegionDrawable buttonTrue;
-    public static TextureRegionDrawable buttonFalse;
-    public static TextureRegionDrawable buttonBack;
-    public static TextureRegionDrawable buttonTryAgain;
-    public static TextureRegionDrawable buttonShare;
+    lateinit var barTimer: NinePatchDrawable
 
-    public static NinePatchDrawable buttonPlay;
-    public static NinePatchDrawable buttonEnabled;
-    public static NinePatchDrawable buttonDisabled;
-    public static TextureRegionDrawable play;
+    lateinit var dialogRanking: NinePatchDrawable
 
-    public static TextureRegionDrawable flagChinese_TW;
-    public static TextureRegionDrawable flagRussian;
-    public static TextureRegionDrawable flagSpanish;
-    public static TextureRegionDrawable flagEnglish;
-    public static TextureRegionDrawable flagFrench;
-    public static TextureRegionDrawable flagJapanese;
-    public static TextureRegionDrawable flagPortugese;
-    public static TextureRegionDrawable flagMore;
+    lateinit var dialogWindow: NinePatchDrawable
 
-    public static TextButtonStyle textButtonStyle;
+    lateinit var photoFrame: TextureRegionDrawable
 
-    public static void load() {
-        TextureAtlas atlas = new TextureAtlas(com.badlogic.gdx.Gdx.files.internal("data/atlasMap.txt"));
+    lateinit var buttonFacebook: TextureRegionDrawable
 
-        fontSmall = new BitmapFont(Gdx.files.internal("data/font32.fnt"), atlas.findRegion("font32"));
-        fontSmall.getData().markupEnabled = true;
+    lateinit var buttonFacebookText: NinePatchDrawable
 
-        fontExtraLarge = new BitmapFont(Gdx.files.internal("data/font100.fnt"), atlas.findRegion("font100"));
+    lateinit var buttonGoogle: TextureRegionDrawable
 
-        title = new TextureRegionDrawable(atlas.findRegion("titulo"));
-        header = atlas.findRegion("header");
+    lateinit var buttonGoogleText: NinePatchDrawable
 
-        pixelBlack = new NinePatchDrawable(new NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0));
-        barTimer = new NinePatchDrawable(new NinePatch(atlas.findRegion("barTimer"), 4, 4, 5, 4));
-        dialogRanking = new NinePatchDrawable(new NinePatch(atlas.findRegion("dialogRanking"), 40, 40, 63, 30));
-        dialogWindow = new NinePatchDrawable(new NinePatch(atlas.findRegion("dialogVentana"), 33, 33, 33, 33));
+    lateinit var buttonAmazon: TextureRegionDrawable
 
-        buttonPlay = new NinePatchDrawable(new NinePatch(atlas.findRegion("btJugar"), 30, 30, 25, 25));
-        buttonEnabled = new NinePatchDrawable(new NinePatch(atlas.findRegion("btEnabled"), 9, 9, 7, 7));
-        buttonDisabled = new NinePatchDrawable(new NinePatch(atlas.findRegion("btDisabled"), 9, 9, 7, 7));
-        play = new TextureRegionDrawable(atlas.findRegion("play"));
+    lateinit var one: TextureRegionDrawable
 
-        buttonFacebook = new TextureRegionDrawable(atlas.findRegion("btFacebook"));
-        buttonFacebookText = new NinePatchDrawable(new NinePatch(atlas.findRegion("btFacebookText"), 55, 20, 0, 0));
-        buttonGoogle = new TextureRegionDrawable(atlas.findRegion("btGoogle"));
-        buttonGoogleText = new NinePatchDrawable(new NinePatch(atlas.findRegion("btGoogleText"), 60, 20, 0, 0));
-        buttonAmazon = new TextureRegionDrawable(atlas.findRegion("btAmazon"));
-        photoFrame = new TextureRegionDrawable(atlas.findRegion("photoFrame"));
+    lateinit var two: TextureRegionDrawable
 
-        one = new TextureRegionDrawable(atlas.findRegion("one"));
-        two = new TextureRegionDrawable(atlas.findRegion("two"));
-        three = new TextureRegionDrawable(atlas.findRegion("three"));
+    lateinit var three: TextureRegionDrawable
 
-        buttonRate = new TextureRegionDrawable(atlas.findRegion("btRate"));
-        buttonAchievement = new TextureRegionDrawable(atlas.findRegion("btAchievement"));
-        buttonLeaderboard = new TextureRegionDrawable(atlas.findRegion("btLeaderboard"));
-        buttonHelp = new TextureRegionDrawable(atlas.findRegion("btHelp"));
-        buttonTrue = new TextureRegionDrawable(atlas.findRegion("btTrue"));
-        buttonFalse = new TextureRegionDrawable(atlas.findRegion("btFalse"));
-        buttonBack = new TextureRegionDrawable(atlas.findRegion("btBack"));
-        buttonTryAgain = new TextureRegionDrawable(atlas.findRegion("btTryAgain"));
-        buttonShare = new TextureRegionDrawable(atlas.findRegion("btShare"));
+    lateinit var buttonRate: TextureRegionDrawable
 
-        textButtonStyle = new TextButtonStyle(buttonDisabled, buttonEnabled, buttonEnabled, fontSmall);
+    lateinit var buttonAchievement: TextureRegionDrawable
 
-        flagChinese_TW = new TextureRegionDrawable(atlas.findRegion("flags/flag_twd"));
-        flagEnglish = new TextureRegionDrawable(atlas.findRegion("flags/flag_gbp"));
-        flagSpanish = new TextureRegionDrawable(atlas.findRegion("flags/flag_esp"));
-        flagRussian = new TextureRegionDrawable(atlas.findRegion("flags/flag_rub"));
-        flagFrench = new TextureRegionDrawable(atlas.findRegion("flags/flag_frf"));
-        flagJapanese = new TextureRegionDrawable(atlas.findRegion("flags/flag_jpy"));
-        flagPortugese = new TextureRegionDrawable(atlas.findRegion("flags/flag_pte"));
-        flagMore = new TextureRegionDrawable(atlas.findRegion("flags/flag_more"));
+    lateinit var buttonLeaderboard: TextureRegionDrawable
 
-        loadAssetsWithSettings();
 
+    lateinit var buttonHelp: TextureRegionDrawable
+
+
+    lateinit var buttonTrue: TextureRegionDrawable
+
+
+    lateinit var buttonFalse: TextureRegionDrawable
+
+
+    lateinit var buttonBack: TextureRegionDrawable
+
+
+    lateinit var buttonTryAgain: TextureRegionDrawable
+
+
+    lateinit var buttonShare: TextureRegionDrawable
+
+
+    lateinit var buttonPlay: NinePatchDrawable
+    private lateinit var buttonEnabled: NinePatchDrawable
+    private lateinit var buttonDisabled: NinePatchDrawable
+
+
+    lateinit var play: TextureRegionDrawable
+
+
+    lateinit var flagChinese_TW: TextureRegionDrawable
+
+
+    lateinit var flagRussian: TextureRegionDrawable
+
+
+    lateinit var flagSpanish: TextureRegionDrawable
+
+
+    lateinit var flagEnglish: TextureRegionDrawable
+
+
+    lateinit var flagFrench: TextureRegionDrawable
+
+
+    lateinit var flagJapanese: TextureRegionDrawable
+
+    lateinit var flagPortugese: TextureRegionDrawable
+
+    lateinit var flagMore: TextureRegionDrawable
+
+    lateinit var textButtonStyle: TextButtonStyle
+
+    fun load() {
+        val atlas = TextureAtlas(Gdx.files.internal("data/atlasMap.txt"))
+
+        fontSmall = BitmapFont(Gdx.files.internal("data/font32.fnt"), atlas.findRegion("font32"))
+        fontSmall.data.markupEnabled = true
+
+        fontExtraLarge =
+            BitmapFont(Gdx.files.internal("data/font100.fnt"), atlas.findRegion("font100"))
+
+        title = TextureRegionDrawable(atlas.findRegion("titulo"))
+        header = atlas.findRegion("header")
+
+        pixelBlack = NinePatchDrawable(NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0))
+        barTimer = NinePatchDrawable(NinePatch(atlas.findRegion("barTimer"), 4, 4, 5, 4))
+        dialogRanking =
+            NinePatchDrawable(NinePatch(atlas.findRegion("dialogRanking"), 40, 40, 63, 30))
+        dialogWindow =
+            NinePatchDrawable(NinePatch(atlas.findRegion("dialogVentana"), 33, 33, 33, 33))
+
+        buttonPlay = NinePatchDrawable(NinePatch(atlas.findRegion("btJugar"), 30, 30, 25, 25))
+        buttonEnabled = NinePatchDrawable(NinePatch(atlas.findRegion("btEnabled"), 9, 9, 7, 7))
+        buttonDisabled = NinePatchDrawable(NinePatch(atlas.findRegion("btDisabled"), 9, 9, 7, 7))
+        play = TextureRegionDrawable(atlas.findRegion("play"))
+
+        buttonFacebook = TextureRegionDrawable(atlas.findRegion("btFacebook"))
+        buttonFacebookText =
+            NinePatchDrawable(NinePatch(atlas.findRegion("btFacebookText"), 55, 20, 0, 0))
+        buttonGoogle = TextureRegionDrawable(atlas.findRegion("btGoogle"))
+        buttonGoogleText =
+            NinePatchDrawable(NinePatch(atlas.findRegion("btGoogleText"), 60, 20, 0, 0))
+        buttonAmazon = TextureRegionDrawable(atlas.findRegion("btAmazon"))
+        photoFrame = TextureRegionDrawable(atlas.findRegion("photoFrame"))
+
+        one = TextureRegionDrawable(atlas.findRegion("one"))
+        two = TextureRegionDrawable(atlas.findRegion("two"))
+        three = TextureRegionDrawable(atlas.findRegion("three"))
+
+        buttonRate = TextureRegionDrawable(atlas.findRegion("btRate"))
+        buttonAchievement = TextureRegionDrawable(atlas.findRegion("btAchievement"))
+        buttonLeaderboard = TextureRegionDrawable(atlas.findRegion("btLeaderboard"))
+        buttonHelp = TextureRegionDrawable(atlas.findRegion("btHelp"))
+        buttonTrue = TextureRegionDrawable(atlas.findRegion("btTrue"))
+        buttonFalse = TextureRegionDrawable(atlas.findRegion("btFalse"))
+        buttonBack = TextureRegionDrawable(atlas.findRegion("btBack"))
+        buttonTryAgain = TextureRegionDrawable(atlas.findRegion("btTryAgain"))
+        buttonShare = TextureRegionDrawable(atlas.findRegion("btShare"))
+
+        textButtonStyle = TextButtonStyle(buttonDisabled, buttonEnabled, buttonEnabled, fontSmall)
+
+        flagChinese_TW = TextureRegionDrawable(atlas.findRegion("flags/flag_twd"))
+        flagEnglish = TextureRegionDrawable(atlas.findRegion("flags/flag_gbp"))
+        flagSpanish = TextureRegionDrawable(atlas.findRegion("flags/flag_esp"))
+        flagRussian = TextureRegionDrawable(atlas.findRegion("flags/flag_rub"))
+        flagFrench = TextureRegionDrawable(atlas.findRegion("flags/flag_frf"))
+        flagJapanese = TextureRegionDrawable(atlas.findRegion("flags/flag_jpy"))
+        flagPortugese = TextureRegionDrawable(atlas.findRegion("flags/flag_pte"))
+        flagMore = TextureRegionDrawable(atlas.findRegion("flags/flag_more"))
+
+        loadAssetsWithSettings()
     }
 
-    public static void loadAssetsWithSettings() {
-        Locale locale;
-        switch (com.nopalsoft.thetruecolor.Settings.selectedLanguage) {
-            case ENGLISH:
-                locale = Locale.ROOT;
-                break;
-            case SPANISH:
-                locale = new Locale("es");
-                break;
-            case RUSSIAN:
-                locale = new Locale("ru");
-                break;
-            case FRENCH:
-                locale = new Locale("fr");
-                break;
-            case JAPANESE:
-                locale = new Locale("ja");
-                break;
-            case PORTUGUESE:
-                locale = new Locale("pt");
-                break;
-            case CHINESE_TAIWAN:
-                locale = new Locale("zh", "TW");
-                break;
-            case DEFAULT:
-            default:
-                locale = Locale.getDefault();
-                break;
+    @JvmStatic
+    fun loadAssetsWithSettings() {
+        val locale = when (Settings.selectedLanguage) {
+            Languages.ENGLISH -> Locale.ROOT
+            Languages.SPANISH -> Locale("es")
+            Languages.RUSSIAN -> Locale("ru")
+            Languages.FRENCH -> Locale("fr")
+            Languages.JAPANESE -> Locale("ja")
+            Languages.PORTUGUESE -> Locale("pt")
+            Languages.CHINESE_TAIWAN -> Locale("zh", "TW")
+            Languages.DEFAULT -> Locale.getDefault()
         }
-
-        languages = I18NBundle.createBundle(Gdx.files.internal("strings/strings"), locale);
+        languages = I18NBundle.createBundle(Gdx.files.internal("strings/strings"), locale)
     }
-
 }
