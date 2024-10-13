@@ -39,25 +39,16 @@ object Achievements {
     @JvmStatic
     fun unlockScoreAchievements(num: Long) {
         when (num) {
-            250L -> {
-                gameHandler.unlockAchievement(god)
-            }
+            250L -> gameHandler.unlockAchievement(god)
 
-            175L -> {
-                gameHandler.unlockAchievement(expert)
-            }
+            175L -> gameHandler.unlockAchievement(expert)
 
-            100L -> {
-                gameHandler.unlockAchievement(advanced)
-            }
+            100L -> gameHandler.unlockAchievement(advanced)
 
-            60L -> {
-                gameHandler.unlockAchievement(intermediate)
-            }
+            60L -> gameHandler.unlockAchievement(intermediate)
 
-            30L -> {
-                gameHandler.unlockAchievement(beginner)
-            }
+            30L -> gameHandler.unlockAchievement(beginner)
+
         }
     }
 
