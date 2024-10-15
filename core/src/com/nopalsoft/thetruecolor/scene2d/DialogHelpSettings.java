@@ -24,111 +24,111 @@ public class DialogHelpSettings extends BaseDialog {
         DEFAULT, ENGLISH, SPANISH, CHINESE_TAIWAN, RUSSIAN, FRENCH, JAPANESE, PORTUGUESE
     }
 
-    Table tbColores;
+    Table tableColors;
 
-    TextButton btDefault, btEnglish, btSpanish, btChineseTaiwan, btRussian, btFrench, btJapanese, btPortugese;
-    TextButton btMore;
+    TextButton buttonDefault, buttonEnglish, buttonSpanish, buttonChineseTaiwan, buttonRussian, buttonFrench, buttonJapanese, buttonPortugese;
+    TextButton buttonMore;
 
-    DialogMoreLanguages vtnaMoreLanguages;
+    DialogMoreLanguages dialogMoreLanguages;
 
     public DialogHelpSettings(final BaseScreen currentScreen) {
         super(currentScreen, WIDTH, HEIGHT, 80);
         setCloseButton(560);
 
-        Label lbIdioma = new Label(languages.get("language"), new LabelStyle(Assets.fontSmall, Color.BLACK));
-        lbIdioma.setPosition(getWidth() / 2f - lbIdioma.getWidth() / 2f, 555);
-        addActor(lbIdioma);
+        Label labelLanguage = new Label(languages.get("language"), new LabelStyle(Assets.fontSmall, Color.BLACK));
+        labelLanguage.setPosition(getWidth() / 2f - labelLanguage.getWidth() / 2f, 555);
+        addActor(labelLanguage);
 
-        vtnaMoreLanguages = new DialogMoreLanguages(currentScreen);
+        dialogMoreLanguages = new DialogMoreLanguages(currentScreen);
 
-        btMore = crearBotton(languages.get("more"), null, Assets.flagMore);
-        btMore.addListener(new ClickListener() {
+        buttonMore = createButton(languages.get("more"), null, Assets.flagMore);
+        buttonMore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btMore.setChecked(false);
-                vtnaMoreLanguages.show(currentScreen.stage);
+                buttonMore.setChecked(false);
+                dialogMoreLanguages.show(currentScreen.stage);
             }
         });
 
-        btDefault = crearBotton("Default", Languages.DEFAULT, null);
+        buttonDefault = createButton("Default", Languages.DEFAULT, null);
 
-        btEnglish = crearBotton("English", Languages.ENGLISH, Assets.flagEnglish);
+        buttonEnglish = createButton("English", Languages.ENGLISH, Assets.flagEnglish);
 
-        btSpanish = crearBotton("Espalier", Languages.SPANISH, Assets.flagSpanish);
+        buttonSpanish = createButton("Espalier", Languages.SPANISH, Assets.flagSpanish);
 
-        btChineseTaiwan = crearBotton("中文", Languages.CHINESE_TAIWAN, Assets.flagChinese_TW);
+        buttonChineseTaiwan = createButton("中文", Languages.CHINESE_TAIWAN, Assets.flagChinese_TW);
 
-        btRussian = crearBotton("Русский", Languages.RUSSIAN, Assets.flagRussian);
-        btRussian.getLabel().setFontScale(.7f);
+        buttonRussian = createButton("Русский", Languages.RUSSIAN, Assets.flagRussian);
+        buttonRussian.getLabel().setFontScale(.7f);
 
-        btFrench = crearBotton("Français", Languages.FRENCH, Assets.flagFrench);
+        buttonFrench = createButton("Français", Languages.FRENCH, Assets.flagFrench);
 
-        btJapanese = crearBotton("日本語", Languages.JAPANESE, Assets.flagJapanese);
+        buttonJapanese = createButton("日本語", Languages.JAPANESE, Assets.flagJapanese);
 
-        btPortugese = crearBotton("Português", Languages.PORTUGUESE, Assets.flagPortugese);
+        buttonPortugese = createButton("Portuguese", Languages.PORTUGUESE, Assets.flagPortugese);
 
         switch (Settings.selectedLanguage) {
             case DEFAULT:
-                btDefault.setChecked(true);
+                buttonDefault.setChecked(true);
                 break;
             case ENGLISH:
-                btEnglish.setChecked(true);
+                buttonEnglish.setChecked(true);
                 break;
             case SPANISH:
-                btSpanish.setChecked(true);
+                buttonSpanish.setChecked(true);
                 break;
             case CHINESE_TAIWAN:
-                btChineseTaiwan.setChecked(true);
+                buttonChineseTaiwan.setChecked(true);
                 break;
             case RUSSIAN:
-                btRussian.setChecked(true);
+                buttonRussian.setChecked(true);
                 break;
             case FRENCH:
-                btFrench.setChecked(true);
+                buttonFrench.setChecked(true);
                 break;
             case JAPANESE:
-                btJapanese.setChecked(true);
+                buttonJapanese.setChecked(true);
                 break;
             case PORTUGUESE:
-                btPortugese.setChecked(true);
+                buttonPortugese.setChecked(true);
                 break;
         }
 
 
-        ButtonGroup<TextButton> btGroup = new ButtonGroup<>(btDefault, btEnglish, btSpanish, btChineseTaiwan, btRussian, btFrench, btJapanese, btPortugese);
+        ButtonGroup<TextButton> btGroup = new ButtonGroup<>(buttonDefault, buttonEnglish, buttonSpanish, buttonChineseTaiwan, buttonRussian, buttonFrench, buttonJapanese, buttonPortugese);
         btGroup.setMaxCheckCount(1);
 
-        Table tbIdiomas = new Table();
-        tbIdiomas.setSize(getWidth(), 200);
-        tbIdiomas.setPosition(0, 300);
+        Table tableLanguages = new Table();
+        tableLanguages.setSize(getWidth(), 200);
+        tableLanguages.setPosition(0, 300);
 
-        tbIdiomas.defaults().expandX().pad(3f, 10, 3f, 10).fill().uniform();
+        tableLanguages.defaults().expandX().pad(3f, 10, 3f, 10).fill().uniform();
 
-        tbIdiomas.add(btDefault);
-        tbIdiomas.add(btEnglish);
-        tbIdiomas.add(btSpanish);
-        tbIdiomas.row();
-        tbIdiomas.add(btChineseTaiwan);
-        tbIdiomas.add(btRussian);
-        tbIdiomas.add(btFrench);
-        tbIdiomas.row();
-        tbIdiomas.add(btJapanese);
-        tbIdiomas.add(btPortugese);
-        tbIdiomas.add(btMore);
-        tbIdiomas.row();
+        tableLanguages.add(buttonDefault);
+        tableLanguages.add(buttonEnglish);
+        tableLanguages.add(buttonSpanish);
+        tableLanguages.row();
+        tableLanguages.add(buttonChineseTaiwan);
+        tableLanguages.add(buttonRussian);
+        tableLanguages.add(buttonFrench);
+        tableLanguages.row();
+        tableLanguages.add(buttonJapanese);
+        tableLanguages.add(buttonPortugese);
+        tableLanguages.add(buttonMore);
+        tableLanguages.row();
 
-        // Los colores
-        tbColores = new Table();
-        tbColores.setSize(getWidth(), 240);
+        // The colors
+        tableColors = new Table();
+        tableColors.setSize(getWidth(), 240);
 
-        fillTableColores();
+        fillTableColors();
 
-        addActor(tbColores);
-        addActor(tbIdiomas);
+        addActor(tableColors);
+        addActor(tableLanguages);
     }
 
-    private void fillTableColores() {
-        tbColores.clear();
+    private void fillTableColors() {
+        tableColors.clear();
 
         Image iBlue = new Image(Assets.barTimer);
         iBlue.setColor(Color.BLUE);
@@ -154,39 +154,39 @@ public class DialogHelpSettings extends BaseDialog {
         Image iRed = new Image(Assets.barTimer);
         iRed.setColor(Color.RED);
 
-        tbColores.defaults().expandX().padTop(5).padBottom(5);
+        tableColors.defaults().expandX().padTop(5).padBottom(5);
 
-        tbColores.add(getNewLabelWithColor(languages.get("blue"), Color.BLUE));
-        tbColores.add(iBlue).size(40).left();
+        tableColors.add(getNewLabelWithColor(languages.get("blue"), Color.BLUE));
+        tableColors.add(iBlue).size(40).left();
 
-        tbColores.add(getNewLabelWithColor(languages.get("cyan"), Color.CYAN));
-        tbColores.add(iCyan).size(40).left();
+        tableColors.add(getNewLabelWithColor(languages.get("cyan"), Color.CYAN));
+        tableColors.add(iCyan).size(40).left();
 
-        tbColores.row();
-        tbColores.add(getNewLabelWithColor(languages.get("green"), Color.GREEN));
-        tbColores.add(iGreen).size(40).left();
+        tableColors.row();
+        tableColors.add(getNewLabelWithColor(languages.get("green"), Color.GREEN));
+        tableColors.add(iGreen).size(40).left();
 
-        tbColores.add(getNewLabelWithColor(languages.get("yellow"), Color.YELLOW));
-        tbColores.add(iYellow).size(40).left();
+        tableColors.add(getNewLabelWithColor(languages.get("yellow"), Color.YELLOW));
+        tableColors.add(iYellow).size(40).left();
 
-        tbColores.row();
-        tbColores.add(getNewLabelWithColor(languages.get("pink"), Color.PINK));
-        tbColores.add(iPink).size(40).left();
+        tableColors.row();
+        tableColors.add(getNewLabelWithColor(languages.get("pink"), Color.PINK));
+        tableColors.add(iPink).size(40).left();
 
-        tbColores.add(getNewLabelWithColor(languages.get("brown"), new Color(.6f, .3f, 0, 1)));
-        tbColores.add(iBrown).size(40).left();
+        tableColors.add(getNewLabelWithColor(languages.get("brown"), new Color(.6f, .3f, 0, 1)));
+        tableColors.add(iBrown).size(40).left();
 
-        tbColores.row();
-        tbColores.add(getNewLabelWithColor(languages.get("purple"), Color.PURPLE));
-        tbColores.add(iPurple).size(40).left();
+        tableColors.row();
+        tableColors.add(getNewLabelWithColor(languages.get("purple"), Color.PURPLE));
+        tableColors.add(iPurple).size(40).left();
 
-        tbColores.add(getNewLabelWithColor(languages.get("red"), Color.RED));
-        tbColores.add(iRed).size(40).left();
+        tableColors.add(getNewLabelWithColor(languages.get("red"), Color.RED));
+        tableColors.add(iRed).size(40).left();
     }
 
     private Label getNewLabelWithColor(String text, Color color) {
-        LabelStyle lbStyleColores = new LabelStyle(Assets.fontSmall, color);
-        Label label = new Label(text, lbStyleColores);
+        LabelStyle labelStyleColors = new LabelStyle(Assets.fontSmall, color);
+        Label label = new Label(text, labelStyleColors);
         if (Settings.selectedLanguage == Languages.RUSSIAN) {
             label.setFontScale(.7f);
         }
@@ -194,16 +194,16 @@ public class DialogHelpSettings extends BaseDialog {
 
     }
 
-    private TextButton crearBotton(String texto, Languages language, TextureRegionDrawable flag) {
-        TextButton btAux = new TextButton(texto, Assets.textButtonStyle);
+    private TextButton createButton(String text, Languages language, TextureRegionDrawable flag) {
+        TextButton textButton = new TextButton(text, Assets.textButtonStyle);
         if (flag != null) {
-            btAux.add(new Image(flag));
+            textButton.add(new Image(flag));
         }
         if (language != null) {
-            btAux.addListener(addClickListener(language));
+            textButton.addListener(addClickListener(language));
         }
-        btAux.getLabel().setFontScale(.8f);
-        return btAux;
+        textButton.getLabel().setFontScale(.8f);
+        return textButton;
 
     }
 
@@ -214,8 +214,7 @@ public class DialogHelpSettings extends BaseDialog {
                 Settings.selectedLanguage = language;
                 Settings.save();
                 Assets.loadAssetsWithSettings();
-                languages = languages;
-                fillTableColores();
+                fillTableColors();
 
             }
         };
