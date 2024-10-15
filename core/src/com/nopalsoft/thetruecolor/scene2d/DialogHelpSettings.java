@@ -1,5 +1,7 @@
 package com.nopalsoft.thetruecolor.scene2d;
 
+import static com.nopalsoft.thetruecolor.Assets.languages;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
@@ -14,7 +16,7 @@ import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.screens.BaseScreen;
 
-public class DialogHelpSettings extends Dialog {
+public class DialogHelpSettings extends BaseDialog {
     static final float WIDTH = 440;
     static final float HEIGHT = 600;
 
@@ -33,13 +35,13 @@ public class DialogHelpSettings extends Dialog {
         super(currentScreen, WIDTH, HEIGHT, 80);
         setCloseButton(560);
 
-        Label lbIdioma = new Label(Assets.languages.get("language"), new LabelStyle(Assets.fontSmall, Color.BLACK));
+        Label lbIdioma = new Label(languages.get("language"), new LabelStyle(Assets.fontSmall, Color.BLACK));
         lbIdioma.setPosition(getWidth() / 2f - lbIdioma.getWidth() / 2f, 555);
         addActor(lbIdioma);
 
         vtnaMoreLanguages = new DialogMoreLanguages(currentScreen);
 
-        btMore = crearBotton(Assets.languages.get("more"), null, Assets.flagMore);
+        btMore = crearBotton(languages.get("more"), null, Assets.flagMore);
         btMore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -212,7 +214,7 @@ public class DialogHelpSettings extends Dialog {
                 Settings.selectedLanguage = language;
                 Settings.save();
                 Assets.loadAssetsWithSettings();
-                languages = Assets.languages;
+                languages = languages;
                 fillTableColores();
 
             }

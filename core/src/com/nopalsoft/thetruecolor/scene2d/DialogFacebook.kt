@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.nopalsoft.thetruecolor.Assets
 import com.nopalsoft.thetruecolor.screens.BaseScreen
 
-class DialogFacebook(currentScreen: BaseScreen) : Dialog(currentScreen, WIDTH, HEIGHT, 300F) {
+class DialogFacebook(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDTH, HEIGHT, 300F) {
 
     private val labelText =
         Label(languages.get("loginToFacebook"), Label.LabelStyle(Assets.fontSmall, Color.BLACK))
