@@ -15,25 +15,25 @@ public class DialogAmazon extends Dialog {
     static final float WIDTH = 440;
     static final float HEIGHT = 250;
 
-    Label lbText;
-    TextButton btAmazonLogin;
+    Label labelText;
+    TextButton buttonAmazonLogin;
 
     public DialogAmazon(Screens currentScreen) {
         super(currentScreen, WIDTH, HEIGHT, 300);
 
         setCloseButton(210);
 
-        lbText = new Label(languages.get("loginToGoogle").replace("Google", "Amazon"), new LabelStyle(Assets.fontSmall, Color.BLACK));
-        lbText.setWidth(getWidth() - 20);
-        lbText.setFontScale(.75f);
-        lbText.setWrap(true);
-        lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 165);
+        labelText = new Label(languages.get("loginToGoogle").replace("Google", "Amazon"), new LabelStyle(Assets.fontSmall, Color.BLACK));
+        labelText.setWidth(getWidth() - 20);
+        labelText.setFontScale(.75f);
+        labelText.setWrap(true);
+        labelText.setPosition(getWidth() / 2f - labelText.getWidth() / 2f, 165);
 
-        btAmazonLogin = new TextButton("", new TextButtonStyle(Assets.buttonPlay, null, null, Assets.fontSmall));
-        screen.addPressEffect(btAmazonLogin);
-        btAmazonLogin.getLabel().setFontScale(.75f);
+        buttonAmazonLogin = new TextButton("", new TextButtonStyle(Assets.buttonPlay, null, null, Assets.fontSmall));
+        screen.addPressEffect(buttonAmazonLogin);
+        buttonAmazonLogin.getLabel().setFontScale(.75f);
 
-        btAmazonLogin.addListener(new ClickListener() {
+        buttonAmazonLogin.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (game.gameServiceHandler.isSignedIn()) {
@@ -45,8 +45,8 @@ public class DialogAmazon extends Dialog {
             }
         });
 
-        addActor(lbText);
-        addActor(btAmazonLogin);
+        addActor(labelText);
+        addActor(buttonAmazonLogin);
 
     }
 
@@ -58,8 +58,8 @@ public class DialogAmazon extends Dialog {
         if (game.gameServiceHandler.isSignedIn())
             textButton = languages.get("logout");
 
-        btAmazonLogin.setText(textButton);
-        btAmazonLogin.pack();
-        btAmazonLogin.setPosition(getWidth() / 2f - btAmazonLogin.getWidth() / 2f, 35);
+        buttonAmazonLogin.setText(textButton);
+        buttonAmazonLogin.pack();
+        buttonAmazonLogin.setPosition(getWidth() / 2f - buttonAmazonLogin.getWidth() / 2f, 35);
     }
 }
