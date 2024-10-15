@@ -17,11 +17,16 @@ import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.scene2d.CountDown;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer;
+import com.badlogic.gdx.utils.Align;
+import com.nopalsoft.thetruecolor.objects.Word;
+import com.nopalsoft.thetruecolor.TrueColorGame;
+import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
 
 public class GameScreen extends Screens {
     public static int STATE_READY = 0;
     public static int STATE_RUNNING = 1;
-    public static int STATE_GAMEOVER = 2;
+    public static int STATE_GAME_OVER = 2;
     int state;
 
     public static float MINIMUM_TIME_PER_WORD = .62f;
@@ -38,13 +43,13 @@ public class GameScreen extends Screens {
     int score;
     int scoreAnterior;
 
-    com.nopalsoft.thetruecolor.objects.Word oWord;
-    com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer tableProgressbarTimer;
+    Word word;
+    TableProgressbarTimer tableProgressbarTimer;
 
-    public GameScreen(final com.nopalsoft.thetruecolor.TrueColorGame game) {
+    public GameScreen(final TrueColorGame game) {
         super(game);
 
-        oWord = new com.nopalsoft.thetruecolor.objects.Word();
+        word = new Word();
 
         labelScore = new Label("0", new LabelStyle(Assets.fontSmall, Color.WHITE));
         labelScore.setColor(Color.RED);
@@ -52,7 +57,7 @@ public class GameScreen extends Screens {
 
         initialTimeByWord = INITIAL_TIME_PER_WORD;
 
-        tableProgressbarTimer = new com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer(SCREEN_WIDTH / 2f - com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer.WIDTH / 2f, 300);
+        tableProgressbarTimer = new TableProgressbarTimer(SCREEN_WIDTH / 2f - TableProgressbarTimer.WIDTH / 2f, 300);
 
         int buttonSize = 90;
 
@@ -122,7 +127,7 @@ public class GameScreen extends Screens {
         tableMenu.add(buttonBack);
         tableMenu.add(buttonTryAgain);
 
-        // TODO fix that can't be done because the app crashes and they don't accept it in the store.
+        // fix that can't be done because the app crashes and they don't accept it in the store.
         if (Gdx.app.getType() != ApplicationType.iOS) {
             tableMenu.add(buttonShare);
         }
@@ -138,18 +143,18 @@ public class GameScreen extends Screens {
     }
 
     public void createNewWord() {
-        oWord.initialize();
+        word.initialize();
 
         tableProgressbarTimer.remove();
-        tableProgressbarTimer.initialize(oWord.getCurrentWordColor(), initialTimeByWord);
+        tableProgressbarTimer.initialize(word.getCurrentWordColor(), initialTimeByWord);
         stage.addActor(tableProgressbarTimer);
-        stage.addActor(oWord.image);
+        stage.addActor(word.image);
     }
 
     private void checkWord(boolean selection) {
         if (state == STATE_RUNNING) {
 
-            if ((oWord.color == oWord.text && selection) || (oWord.color != oWord.text && !selection)) {
+            if ((word.color == word.text && selection) || (word.color != word.text && !selection)) {
                 score++;
                 Achievements.unlockScoreAchievements(score);
 
@@ -180,7 +185,7 @@ public class GameScreen extends Screens {
         if (score > scoreAnterior) {
             scoreAnterior = score;
 
-            labelScore.setColor(com.nopalsoft.thetruecolor.objects.Word.getRandomColor());
+            labelScore.setColor(Word.getRandomColor());
             labelScore.setText(scoreAnterior + "");
         }
 
@@ -213,7 +218,7 @@ public class GameScreen extends Screens {
 
     private void setGameOver() {
         if (state == STATE_RUNNING) {
-            state = STATE_GAMEOVER;
+            state = STATE_GAME_OVER;
 
             float animationTime = .8f;
 
@@ -223,7 +228,7 @@ public class GameScreen extends Screens {
             tableProgressbarTimer.timeIsOver = true;
             tableProgressbarTimer.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
-            oWord.image.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            word.image.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
             String scoreText = Assets.languages.get("score");
 
@@ -263,7 +268,7 @@ public class GameScreen extends Screens {
 
 
             if (!game.facebookHandler.facebookIsSignedIn() && (Settings.numTimesPlayed == 5 || Settings.numTimesPlayed == 10)) {
-                new com.nopalsoft.thetruecolor.scene2d.DialogFacebook(this).show(stage);
+                new DialogFacebook(this).show(stage);
             }
 
             Achievements.unlockTimesPlayedAchievements();
@@ -275,22 +280,22 @@ public class GameScreen extends Screens {
         StringBuilder scoreTextColor = new StringBuilder();
 
         // HOT FIX : TO PUT COLORS BETWEEN THE LETTERS IS OBVIOUSLY WRONG BUT I COULD NOT THINK OF ANYTHING ELSE
-        String[] apend = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
+        String[] append = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                 "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                 "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                 "[ORANGE]"};
         for (int i = 0; i < scoreText.length(); i++) {
-            scoreTextColor.append(apend[i]);
+            scoreTextColor.append(append[i]);
             scoreTextColor.append(scoreText.charAt(i));
         }
-        scoreTextColor.append(apend[scoreText.length()]);
+        scoreTextColor.append(append[scoreText.length()]);
 
-        Label lblScore = new Label(scoreTextColor + "\n" + score, new Label.LabelStyle(com.nopalsoft.thetruecolor.Assets.fontSmall, com.badlogic.gdx.graphics.Color.WHITE));
-        lblScore.setAlignment(com.badlogic.gdx.utils.Align.center);
-        lblScore.setFontScale(2.5f);
-        lblScore.pack();
-        lblScore.setPosition(SCREEN_WIDTH / 2f - lblScore.getWidth() / 2f, 380);
-        return lblScore;
+        Label labelScore = new Label(scoreTextColor + "\n" + score, new Label.LabelStyle(Assets.fontSmall, Color.WHITE));
+        labelScore.setAlignment(Align.center);
+        labelScore.setFontScale(2.5f);
+        labelScore.pack();
+        labelScore.setPosition(SCREEN_WIDTH / 2f - labelScore.getWidth() / 2f, 380);
+        return labelScore;
     }
 
     @Override

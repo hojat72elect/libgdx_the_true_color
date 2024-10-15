@@ -20,6 +20,7 @@ import com.nopalsoft.thetruecolor.screens.Screens;
 import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
 import com.nopalsoft.thetruecolor.scene2d.DialogAmazon;
 import com.nopalsoft.thetruecolor.scene2d.DialogGoogle;
+import com.nopalsoft.thetruecolor.TrueColorGame;
 
 
 
@@ -28,7 +29,7 @@ public class DialogRanking extends Group {
     public static final float HEIGHT = 385;
 
     MainMenuScreen menuScreen;
-    com.nopalsoft.thetruecolor.TrueColorGame game;
+    TrueColorGame game;
 
     Label rankingTitle;
 
@@ -51,7 +52,7 @@ public class DialogRanking extends Group {
         rankingTitle.setPosition(15, 328);
 
         dialogFacebook = new DialogFacebook(screen);
-        dialogGoogle = new com.nopalsoft.thetruecolor.scene2d.DialogGoogle(screen);
+        dialogGoogle = new DialogGoogle(screen);
         dialogAmazon = new DialogAmazon(screen);
 
         btFacebook = new Button(Assets.buttonFacebook);
