@@ -16,11 +16,10 @@ import com.nopalsoft.thetruecolor.TrueColorGame;
 public class Dialog extends Group {
     public static final float ANIMATION_DURATION = .3f;
 
-    private final Image dim;
+    private final Image imageDim;
     protected BaseScreen screen;
     protected I18NBundle languages;
     protected TrueColorGame game;
-
 
     public Dialog(BaseScreen currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
@@ -29,25 +28,25 @@ public class Dialog extends Group {
         setSize(width, height);
         setY(positionY);
 
-        dim = new Image(Assets.pixelBlack);
-        dim.setSize(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT);
+        imageDim = new Image(Assets.pixelBlack);
+        imageDim.setSize(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT);
 
         setBackGround(Assets.dialogWindow);
 
     }
 
     protected void setCloseButton(float positionY) {
-        Button btClose = new Button(Assets.buttonFalse);
-        btClose.setSize((float) 50, (float) 50);
-        btClose.setPosition((float) 400, positionY);
-        screen.addPressEffect(btClose);
-        btClose.addListener(new ClickListener() {
+        Button buttonClose = new Button(Assets.buttonFalse);
+        buttonClose.setSize((float) 50, (float) 50);
+        buttonClose.setPosition((float) 400, positionY);
+        screen.addPressEffect(buttonClose);
+        buttonClose.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
             }
         });
-        addActor(btClose);
+        addActor(buttonClose);
 
     }
 
@@ -66,10 +65,10 @@ public class Dialog extends Group {
         setScale(.5f);
         addAction(Actions.scaleTo(1, 1, ANIMATION_DURATION));
 
-        dim.getColor().a = 0;
-        dim.addAction(Actions.alpha(.7f, ANIMATION_DURATION));
+        imageDim.getColor().a = 0;
+        imageDim.addAction(Actions.alpha(.7f, ANIMATION_DURATION));
 
-        stage.addActor(dim);
+        stage.addActor(imageDim);
         stage.addActor(this);
 
         game.reqHandler.showAdBanner();
@@ -78,7 +77,7 @@ public class Dialog extends Group {
     public void hide() {
         game.reqHandler.hideAdBanner();
         addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, ANIMATION_DURATION), Actions.removeActor()));
-        dim.addAction(Actions.sequence(Actions.alpha(0, ANIMATION_DURATION), Actions.removeActor()));
+        imageDim.addAction(Actions.sequence(Actions.alpha(0, ANIMATION_DURATION), Actions.removeActor()));
 
     }
 
