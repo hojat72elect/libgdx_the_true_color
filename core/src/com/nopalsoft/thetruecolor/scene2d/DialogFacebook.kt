@@ -1,65 +1,61 @@
-package com.nopalsoft.thetruecolor.scene2d;
+package com.nopalsoft.thetruecolor.scene2d
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.screens.Screens;
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.nopalsoft.thetruecolor.Assets
+import com.nopalsoft.thetruecolor.screens.Screens
 
-public class DialogFacebook extends Dialog {
-    static final float WIDTH = 440;
-    static final float HEIGHT = 250;
+class DialogFacebook(currentScreen: Screens) : Dialog(currentScreen, WIDTH, HEIGHT, 300F) {
 
-    Label labelText;
-    TextButton buttonFacebookLogin;
+    private val labelText =
+        Label(languages.get("loginToFacebook"), Label.LabelStyle(Assets.fontSmall, Color.BLACK))
+    private val buttonFacebookLogin = TextButton(
+        "",
+        TextButton.TextButtonStyle(Assets.buttonFacebookText, null, null, Assets.fontSmall)
+    )
 
-    public DialogFacebook(Screens currentScreen) {
-        super(currentScreen, WIDTH, HEIGHT, 300);
+    init {
+        setCloseButton(210f)
+        labelText.width = width - 20
+        labelText.setFontScale(.75f)
+        labelText.wrap = true
+        labelText.setPosition(width / 2f - labelText.width / 2f, 140f)
 
-        setCloseButton(210);
+        screen.addPressEffect(buttonFacebookLogin)
+        buttonFacebookLogin.label.setFontScale(.75f)
 
-        labelText = new Label(languages.get("loginToFacebook"), new LabelStyle(Assets.fontSmall, Color.BLACK));
-        labelText.setWidth(getWidth() - 20);
-        labelText.setFontScale(.75f);
-        labelText.setWrap(true);
-        labelText.setPosition(getWidth() / 2f - labelText.getWidth() / 2f, 140);
-
-        buttonFacebookLogin = new TextButton("", new TextButtonStyle(Assets.buttonFacebookText, null, null, Assets.fontSmall));
-        screen.addPressEffect(buttonFacebookLogin);
-        buttonFacebookLogin.getLabel().setFontScale(.75f);
-
-        buttonFacebookLogin.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+        buttonFacebookLogin.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent, x: Float, y: Float) {
                 if (game.facebookHandler.facebookIsSignedIn()) {
-                    game.facebookHandler.facebookSignOut();
+                    game.facebookHandler.facebookSignOut()
                 } else {
-                    game.facebookHandler.facebookSignIn();
+                    game.facebookHandler.facebookSignIn()
                 }
-                hide();
+                hide()
             }
-        });
+        })
 
-        addActor(labelText);
-        addActor(buttonFacebookLogin);
-
+        addActor(labelText)
+        addActor(buttonFacebookLogin)
     }
 
-    @Override
-    public void show(Stage stage) {
-        super.show(stage);
+    override fun show(stage: Stage) {
+        super.show(stage)
 
-        String textButton = languages.get("login");
-        if (game.facebookHandler.facebookIsSignedIn())
-            textButton = languages.get("logout");
+        var textButton = languages.get("login")
+        if (game.facebookHandler.facebookIsSignedIn()) textButton = languages.get("logout")
 
-        buttonFacebookLogin.setText(textButton);
-        buttonFacebookLogin.pack();
-        buttonFacebookLogin.setPosition(getWidth() / 2f - buttonFacebookLogin.getWidth() / 2f, 35);
+        buttonFacebookLogin.setText(textButton)
+        buttonFacebookLogin.pack()
+        buttonFacebookLogin.setPosition(width / 2f - buttonFacebookLogin.width / 2f, 35f)
+    }
+
+    companion object {
+        const val WIDTH = 440F
+        const val HEIGHT = 250F
     }
 }
