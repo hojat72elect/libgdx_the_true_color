@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.handlers.AmazonGameServicesHandler;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
-import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
 import com.nopalsoft.thetruecolor.scene2d.DialogAmazon;
 import com.nopalsoft.thetruecolor.scene2d.DialogGoogle;
@@ -45,7 +45,7 @@ public class DialogRanking extends Group {
     public DialogRanking(MainMenuScreen screen) {
         menuScreen = screen;
         game = screen.game;
-        setBounds(Screens.SCREEN_WIDTH / 2f - WIDTH / 2f, 210, WIDTH, HEIGHT);
+        setBounds(BaseScreen.SCREEN_WIDTH / 2f - WIDTH / 2f, 210, WIDTH, HEIGHT);
         setBackground(Assets.dialogRanking);
 
         rankingTitle = new Label(Assets.languages.get("ranking"), new Label.LabelStyle(Assets.fontSmall, Color.WHITE));

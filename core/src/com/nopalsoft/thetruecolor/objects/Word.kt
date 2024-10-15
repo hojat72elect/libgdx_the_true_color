@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.nopalsoft.thetruecolor.Assets
 import com.nopalsoft.thetruecolor.Settings
 import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings.Languages
-import com.nopalsoft.thetruecolor.screens.Screens
+import com.nopalsoft.thetruecolor.screens.BaseScreen
 
 class Word {
 
@@ -50,7 +50,7 @@ class Word {
         image.color = getCurrentWordColor()
         image.setFontScale(if (Settings.selectedLanguage == Languages.RUSSIAN) 0.68f else 1f)
         image.pack()
-        image.setPosition(Screens.SCREEN_WIDTH / 2f - image.width / 2f, 450f)
+        image.setPosition(BaseScreen.SCREEN_WIDTH / 2f - image.width / 2f, 450f)
     }
 
     /**

@@ -7,12 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.nopalsoft.thetruecolor.Assets
-import com.nopalsoft.thetruecolor.screens.Screens
+import com.nopalsoft.thetruecolor.screens.BaseScreen
 
 /**
  * The dialog that will be shown to the user if they click on "more" button in the languages screen.
  */
-class DialogMoreLanguages(currentScreen: Screens) : Dialog(currentScreen, WIDTH, HEIGHT, 300F) {
+class DialogMoreLanguages(currentScreen: BaseScreen) : Dialog(currentScreen, WIDTH, HEIGHT, 300F) {
 
     private val labelText = Label(
         Assets.languages?.get("translateDescription"),

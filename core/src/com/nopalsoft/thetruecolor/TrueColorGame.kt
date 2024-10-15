@@ -16,7 +16,7 @@ import com.nopalsoft.thetruecolor.handlers.RequestHandler
 import com.nopalsoft.thetruecolor.leaderboard.Person
 import com.nopalsoft.thetruecolor.leaderboard.Person.AccountType
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen
-import com.nopalsoft.thetruecolor.screens.Screens
+import com.nopalsoft.thetruecolor.screens.BaseScreen
 
 class TrueColorGame(
     @JvmField
@@ -35,7 +35,7 @@ class TrueColorGame(
 
     override fun create() {
         stage =
-            Stage(StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT))
+            Stage(StretchViewport(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT))
         batcher = SpriteBatch()
 
         Settings.load()

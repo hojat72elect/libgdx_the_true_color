@@ -9,9 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.nopalsoft.thetruecolor.Assets
-import com.nopalsoft.thetruecolor.screens.Screens
+import com.nopalsoft.thetruecolor.screens.BaseScreen
 
-class DialogGoogle(currentScreen: Screens) : Dialog(currentScreen, WIDTH, HEIGHT, 300f) {
+class DialogGoogle(currentScreen: BaseScreen) : Dialog(currentScreen, WIDTH, HEIGHT, 300f) {
 
     private val labelText =
         Label(languages["loginToGoogle"], LabelStyle(Assets.fontSmall, Color.BLACK))

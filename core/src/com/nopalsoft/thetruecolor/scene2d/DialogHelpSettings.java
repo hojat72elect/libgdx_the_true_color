@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
-import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 
 public class DialogHelpSettings extends Dialog {
     static final float WIDTH = 440;
@@ -29,7 +29,7 @@ public class DialogHelpSettings extends Dialog {
 
     DialogMoreLanguages vtnaMoreLanguages;
 
-    public DialogHelpSettings(final Screens currentScreen) {
+    public DialogHelpSettings(final BaseScreen currentScreen) {
         super(currentScreen, WIDTH, HEIGHT, 80);
         setCloseButton(560);
 

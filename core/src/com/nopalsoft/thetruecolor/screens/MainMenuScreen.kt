@@ -19,7 +19,7 @@ import com.nopalsoft.thetruecolor.game.GameScreen
 import com.nopalsoft.thetruecolor.leaderboard.DialogRanking
 import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings
 
-class MainMenuScreen(game: TrueColorGame) : Screens(game) {
+class MainMenuScreen(game: TrueColorGame) : BaseScreen(game) {
 
     private val imageTitle = Image(Assets.title)
     private val dialogRanking = DialogRanking(this)

@@ -10,19 +10,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 import com.nopalsoft.thetruecolor.TrueColorGame;
 
 public class Dialog extends Group {
     public static final float ANIMATION_DURATION = .3f;
 
     private final Image dim;
-    protected Screens screen;
+    protected BaseScreen screen;
     protected I18NBundle languages;
     protected TrueColorGame game;
 
 
-    public Dialog(Screens currentScreen, float width, float height, float positionY) {
+    public Dialog(BaseScreen currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
         game = currentScreen.game;
         languages = Assets.languages;
@@ -30,7 +30,7 @@ public class Dialog extends Group {
         setY(positionY);
 
         dim = new Image(Assets.pixelBlack);
-        dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
+        dim.setSize(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT);
 
         setBackGround(Assets.dialogWindow);
 
@@ -61,7 +61,7 @@ public class Dialog extends Group {
     public void show(Stage stage) {
 
         setOrigin(getWidth() / 2f, getHeight() / 2f);
-        setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
+        setX(BaseScreen.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
         setScale(.5f);
         addAction(Actions.scaleTo(1, 1, ANIMATION_DURATION));

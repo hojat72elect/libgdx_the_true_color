@@ -16,7 +16,7 @@ import com.nopalsoft.thetruecolor.Settings
 import com.nopalsoft.thetruecolor.TrueColorGame
 import com.nopalsoft.thetruecolor.game.GameScreen
 
-abstract class Screens(@JvmField val game: TrueColorGame) : InputAdapter(), Screen {
+abstract class BaseScreen(@JvmField val game: TrueColorGame) : InputAdapter(), Screen {
 
     private val camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
 

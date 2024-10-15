@@ -16,14 +16,14 @@ import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.scene2d.CountDown;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
-import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 import com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.thetruecolor.objects.Word;
 import com.nopalsoft.thetruecolor.TrueColorGame;
 import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
 
-public class GameScreen extends Screens {
+public class GameScreen extends BaseScreen {
     public static int STATE_READY = 0;
     public static int STATE_RUNNING = 1;
     public static int STATE_GAME_OVER = 2;
