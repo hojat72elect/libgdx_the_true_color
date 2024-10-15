@@ -15,25 +15,25 @@ public class DialogFacebook extends Dialog {
     static final float WIDTH = 440;
     static final float HEIGHT = 250;
 
-    Label lbText;
-    TextButton btFacebookLogin;
+    Label labelText;
+    TextButton buttonFacebookLogin;
 
     public DialogFacebook(Screens currentScreen) {
         super(currentScreen, WIDTH, HEIGHT, 300);
 
         setCloseButton(210);
 
-        lbText = new Label(languages.get("loginToFacebook"), new LabelStyle(Assets.fontSmall, Color.BLACK));
-        lbText.setWidth(getWidth() - 20);
-        lbText.setFontScale(.75f);
-        lbText.setWrap(true);
-        lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 140);
+        labelText = new Label(languages.get("loginToFacebook"), new LabelStyle(Assets.fontSmall, Color.BLACK));
+        labelText.setWidth(getWidth() - 20);
+        labelText.setFontScale(.75f);
+        labelText.setWrap(true);
+        labelText.setPosition(getWidth() / 2f - labelText.getWidth() / 2f, 140);
 
-        btFacebookLogin = new TextButton("", new TextButtonStyle(Assets.buttonFacebookText, null, null, Assets.fontSmall));
-        screen.addPressEffect(btFacebookLogin);
-        btFacebookLogin.getLabel().setFontScale(.75f);
+        buttonFacebookLogin = new TextButton("", new TextButtonStyle(Assets.buttonFacebookText, null, null, Assets.fontSmall));
+        screen.addPressEffect(buttonFacebookLogin);
+        buttonFacebookLogin.getLabel().setFontScale(.75f);
 
-        btFacebookLogin.addListener(new ClickListener() {
+        buttonFacebookLogin.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (game.facebookHandler.facebookIsSignedIn()) {
@@ -45,8 +45,8 @@ public class DialogFacebook extends Dialog {
             }
         });
 
-        addActor(lbText);
-        addActor(btFacebookLogin);
+        addActor(labelText);
+        addActor(buttonFacebookLogin);
 
     }
 
@@ -58,8 +58,8 @@ public class DialogFacebook extends Dialog {
         if (game.facebookHandler.facebookIsSignedIn())
             textButton = languages.get("logout");
 
-        btFacebookLogin.setText(textButton);
-        btFacebookLogin.pack();
-        btFacebookLogin.setPosition(getWidth() / 2f - btFacebookLogin.getWidth() / 2f, 35);
+        buttonFacebookLogin.setText(textButton);
+        buttonFacebookLogin.pack();
+        buttonFacebookLogin.setPosition(getWidth() / 2f - buttonFacebookLogin.getWidth() / 2f, 35);
     }
 }
