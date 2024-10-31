@@ -1,6 +1,13 @@
 android {
+    namespace "com.nopalsoft.thetruecolor.android"
     buildToolsVersion "30.0.3"
     compileSdkVersion 34
+
+    compileOptions{
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -16,7 +23,8 @@ android {
     }
     defaultConfig {
         applicationId "com.nopalsoft.thetruecolor"
-        minSdkVersion 14
+        minSdkVersion 26
+        //noinspection OldTargetApi
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
