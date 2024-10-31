@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.handlers.AmazonGameServicesHandler;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 import com.nopalsoft.thetruecolor.screens.BaseScreen;
 import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
@@ -66,22 +65,12 @@ public class DialogRanking extends Group {
         });
 
         TextureRegionDrawable btLoginKeyFrame = Assets.buttonGoogle;
-        if (game.gameServiceHandler instanceof AmazonGameServicesHandler) {
-            btLoginKeyFrame = Assets.buttonAmazon;
-        }
+
 
         btGoogle = new Button(btLoginKeyFrame);
 
         menuScreen.addPressEffect(btGoogle);
         btGoogle.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler instanceof AmazonGameServicesHandler) {
-                    dialogAmazon.show(getStage());
-                } else {
-                    dialogGoogle.show(getStage());
-                }
-            }
         });
 
         Table tableSocial = new Table();

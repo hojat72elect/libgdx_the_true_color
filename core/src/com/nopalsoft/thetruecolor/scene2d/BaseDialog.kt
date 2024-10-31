@@ -57,12 +57,9 @@ open class BaseDialog(val screen: BaseScreen, width: Float, height: Float, posit
 
         stage.addActor(imageDim)
         stage.addActor(this)
-
-        game.reqHandler.showAdBanner()
     }
 
     fun hide() {
-        game.reqHandler.hideAdBanner()
         addAction(
             Actions.sequence(
                 Actions.scaleTo(.5f, .5f, ANIMATION_DURATION),

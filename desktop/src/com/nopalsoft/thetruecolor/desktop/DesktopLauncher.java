@@ -7,146 +7,19 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
-import com.badlogic.gdx.utils.Array;
-import com.nopalsoft.thetruecolor.handlers.FacebookHandler;
-import com.nopalsoft.thetruecolor.handlers.GoogleGameServicesHandler;
+import com.nopalsoft.thetruecolor.TrueColorGame;
 import com.nopalsoft.thetruecolor.handlers.HandlerGWT;
-import com.nopalsoft.thetruecolor.handlers.RequestHandler;
-import com.nopalsoft.thetruecolor.leaderboard.Person;
 
 public class DesktopLauncher {
-    public static com.nopalsoft.thetruecolor.TrueColorGame game;
-    private static boolean isSigned = false;
+    public static TrueColorGame game;
 
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 480;
         config.height = 800;
-        game = new com.nopalsoft.thetruecolor.TrueColorGame(handler, gameHandler, faceHandler, handlerGWT);
+        game = new TrueColorGame();
         new LwjglApplication(game, config);
     }
-
-    static RequestHandler handler = new RequestHandler() {
-
-        @Override
-        public void showRater() {
-
-        }
-
-        @Override
-        public void showInterstitial() {
-
-        }
-
-        @Override
-        public void showAdBanner() {
-
-        }
-
-        @Override
-        public void hideAdBanner() {
-
-        }
-
-        @Override
-        public void shareAPK() {
-
-        }
-
-        @Override
-        public void loadInterstitial() {
-
-        }
-    };
-
-    static GoogleGameServicesHandler gameHandler = new GoogleGameServicesHandler() {
-
-        @Override
-        public void unlockAchievement(String achievementId) {
-
-        }
-
-        @Override
-        public void unlockStepAchievement(float steps, String achievementID) {
-
-        }
-
-        @Override
-        public void submitScore(long score) {
-
-        }
-
-        @Override
-        public void signOut() {
-
-        }
-
-        @Override
-        public void signIn() {
-
-        }
-
-        @Override
-        public boolean isSignedIn() {
-
-            return false;
-        }
-
-        @Override
-        public void getLeaderboard() {
-
-        }
-
-        @Override
-        public void getAchievements() {
-
-        }
-
-        @Override
-        public void getScores() {
-
-        }
-    };
-
-    static FacebookHandler faceHandler = new FacebookHandler() {
-
-        @Override
-        public void facebookSignOut() {
-            isSigned = false;
-            Gdx.app.log("Facebook", "Sign out");
-            game.removeFromArray(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK);
-        }
-
-        @Override
-        public void facebookSignIn() {
-            isSigned = true;
-            Gdx.app.log("Facebook", "Sign in");
-            facebookGetScores();
-        }
-
-        public boolean facebookIsSignedIn() {
-            return isSigned;
-        }
-
-
-        @Override
-        public void facebookGetScores() {
-            Array<Person> arrPerson = new Array<>();
-            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "1", "Jessie", 15000));
-            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "2", "Rogelio", 10000));
-            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.GOOGLE_PLAY, "3", "Susana", 8000));
-            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "4", "Flavia", 5000));
-            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.FACEBOOK, "5", "Micky", 2500));
-            arrPerson.add(new Person(com.nopalsoft.thetruecolor.leaderboard.Person.AccountType.GOOGLE_PLAY, "6", "Carlos", 1000));
-            game.setArrayPerson(arrPerson);
-        }
-
-        @Override
-        public void facebookSubmitScore(int score) {
-
-        }
-
-    };
 
     static HandlerGWT handlerGWT = new HandlerGWT() {
         @Override

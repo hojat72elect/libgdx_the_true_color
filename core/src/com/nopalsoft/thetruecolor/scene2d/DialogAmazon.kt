@@ -37,11 +37,6 @@ class DialogAmazon(currentScreen: BaseScreen) : BaseDialog(
 
         buttonAmazonLogin.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.signOut()
-                } else {
-                    game.gameServiceHandler.signIn()
-                }
                 hide()
             }
         })
@@ -54,9 +49,7 @@ class DialogAmazon(currentScreen: BaseScreen) : BaseDialog(
     override fun show(stage: Stage) {
         super.show(stage)
 
-        var textButton = languages.get("login")
-        if (game.gameServiceHandler.isSignedIn()) textButton = languages.get("logout")
-
+        val textButton = languages.get("login")
         buttonAmazonLogin.setText(textButton)
         buttonAmazonLogin.pack()
         buttonAmazonLogin.setPosition(width / 2f - buttonAmazonLogin.width / 2f, 35f)

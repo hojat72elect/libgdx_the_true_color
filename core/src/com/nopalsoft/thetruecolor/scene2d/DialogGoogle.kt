@@ -31,11 +31,6 @@ class DialogGoogle(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDTH,
 
         buttonGoogleLogin.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.signOut()
-                } else {
-                    game.gameServiceHandler.signIn()
-                }
                 hide()
             }
         })
@@ -47,8 +42,7 @@ class DialogGoogle(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDTH,
     override fun show(stage: Stage) {
         super.show(stage)
 
-        var textButton = languages.get("login")
-        if (game.gameServiceHandler.isSignedIn()) textButton = languages.get("logout")
+        val textButton = languages.get("login")
 
         buttonGoogleLogin.setText(textButton)
         buttonGoogleLogin.pack()

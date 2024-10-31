@@ -11,17 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.thetruecolor.Achievements;
+import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
-import com.nopalsoft.thetruecolor.scene2d.CountDown;
-import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
-import com.nopalsoft.thetruecolor.screens.BaseScreen;
-import com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer;
-import com.badlogic.gdx.utils.Align;
-import com.nopalsoft.thetruecolor.objects.Word;
 import com.nopalsoft.thetruecolor.TrueColorGame;
-import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
+import com.nopalsoft.thetruecolor.objects.Word;
+import com.nopalsoft.thetruecolor.scene2d.CountDown;
+import com.nopalsoft.thetruecolor.scene2d.TableProgressbarTimer;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
+import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 
 public class GameScreen extends BaseScreen {
     public static int STATE_READY = 0;
@@ -110,13 +108,6 @@ public class GameScreen extends BaseScreen {
         buttonShare = new Button(Assets.buttonShare);
         addPressEffect(buttonShare);
         buttonShare.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (!buttonShare.isDisabled()) {
-                    game.reqHandler.shareAPK();
-                }
-
-            }
         });
 
         tableMenu = new Table();
@@ -137,9 +128,6 @@ public class GameScreen extends BaseScreen {
         stage.addActor(labelScore);
 
         setReady();
-
-        game.reqHandler.loadInterstitial();
-
     }
 
     public void createNewWord() {
@@ -156,7 +144,7 @@ public class GameScreen extends BaseScreen {
 
             if ((word.color == word.text && selection) || (word.color != word.text && !selection)) {
                 score++;
-                Achievements.unlockScoreAchievements(score);
+
 
                 if (score < 10) {
                     initialTimeByWord -= .14f;// 1.8seg menos
@@ -256,22 +244,10 @@ public class GameScreen extends BaseScreen {
             stage.addActor(lblScore);
             stage.addActor(tableMenu);
             Settings.setNewScore(score);
-            game.facebookHandler.facebookSubmitScore(score);
-            game.gameServiceHandler.submitScore(score);
-
-            game.reqHandler.showAdBanner();
 
             Settings.numTimesPlayed++;
-            if (Settings.numTimesPlayed % 7f == 0 || score > 80) {
-                game.reqHandler.showInterstitial();
-            }
 
 
-            if (!game.facebookHandler.facebookIsSignedIn() && (Settings.numTimesPlayed == 5 || Settings.numTimesPlayed == 10)) {
-                new DialogFacebook(this).show(stage);
-            }
-
-            Achievements.unlockTimesPlayedAchievements();
             Settings.save();
         }
     }
@@ -301,7 +277,6 @@ public class GameScreen extends BaseScreen {
     @Override
     public void hide() {
         super.hide();
-        game.reqHandler.hideAdBanner();
     }
 
     @Override

@@ -47,23 +47,18 @@ class MainMenuScreen(game: TrueColorGame) : BaseScreen(game) {
         addPressEffect(buttonRate)
         buttonRate.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                game.reqHandler.showRater()
             }
         })
 
         addPressEffect(buttonLeaderboard)
         buttonLeaderboard.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                if (game.gameServiceHandler.isSignedIn()) game.gameServiceHandler.getLeaderboard()
-                else game.gameServiceHandler.signIn()
             }
         })
 
         addPressEffect(buttonAchievement)
         buttonAchievement.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                if (game.gameServiceHandler.isSignedIn()) game.gameServiceHandler.getAchievements()
-                else game.gameServiceHandler.signIn()
             }
         })
 
@@ -91,10 +86,6 @@ class MainMenuScreen(game: TrueColorGame) : BaseScreen(game) {
         stage.addActor(menuUI)
 
         if (game.arrPerson != null) updateLeaderboard()
-
-        if (game.facebookHandler.facebookIsSignedIn()) game.facebookHandler.facebookGetScores()
-
-        if (game.gameServiceHandler.isSignedIn()) game.gameServiceHandler.getScores()
     }
 
     override fun update(delta: Float) {
@@ -107,7 +98,7 @@ class MainMenuScreen(game: TrueColorGame) : BaseScreen(game) {
         batcher.end()
     }
 
-    fun updateLeaderboard() {
+    private fun updateLeaderboard() {
         dialogRanking.clearLeaderboard()
         game.arrPerson!!.sort() // Arrange from largest to smallest
         for (obj in game.arrPerson!!) {

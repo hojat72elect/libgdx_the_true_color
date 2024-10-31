@@ -30,11 +30,6 @@ class DialogFacebook(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDT
 
         buttonFacebookLogin.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                if (game.facebookHandler.facebookIsSignedIn()) {
-                    game.facebookHandler.facebookSignOut()
-                } else {
-                    game.facebookHandler.facebookSignIn()
-                }
                 hide()
             }
         })
@@ -46,9 +41,7 @@ class DialogFacebook(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDT
     override fun show(stage: Stage) {
         super.show(stage)
 
-        var textButton = languages.get("login")
-        if (game.facebookHandler.facebookIsSignedIn()) textButton = languages.get("logout")
-
+        val textButton = languages.get("login")
         buttonFacebookLogin.setText(textButton)
         buttonFacebookLogin.pack()
         buttonFacebookLogin.setPosition(width / 2f - buttonFacebookLogin.width / 2f, 35f)
